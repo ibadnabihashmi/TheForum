@@ -1,0 +1,40 @@
+.fluidMedia {
+  position: relative;
+
+  height: 0;
+
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+
+  overflow: hidden;
+}
+
+.fluidMedia iframe {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border: none;
+}
+
+
+.small-spinner {
+  opacity: .8;
+}
+
+.small-spinner spinner {
+  display: inline-block;
+
+  margin: 0 1em;
+}
+
+.small-spinner .spinner {
+  width: 30px;
+  height: 30px;
+
+  margin: 0;
+}
