@@ -9,11 +9,11 @@ html(ng-app='the-forum')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
     != css('main')
 
-  body
-    include ../partials/header
+  body(ng-controller="BodyCtrl")
+    div(ng-include="'/Forum/views/partials/header.html'")
     #wrapper
       .content.container(ng-view animate-panel='', effect='zoomIn')
-    include ../partials/footer
+    div(ng-include="'/Forum/views/partials/footer.html'")
 
     script(src='/js/lib/jquery-2.1.3.min.js')
     script(src='/scripts/angular.min.js')
@@ -28,6 +28,7 @@ html(ng-app='the-forum')
     script(src='/Forum/scripts/configs/routes.js')
     script(src='/Forum/scripts/factories/api.js')
 
-    script(src='/Forum/scripts/controllers/login.js')
-    script(src='/Forum/scripts/controllers/signup.js')
+    script(src='/Forum/scripts/controllers/body.js')
+    script(src='/Forum/scripts/controllers/account.js')
+    script(src='/Forum/scripts/controllers/ask.js')
 

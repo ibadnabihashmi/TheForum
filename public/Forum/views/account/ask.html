@@ -1,0 +1,22 @@
+<div ng-controller="AskCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="form-group">
+                    <textarea class="form-control" ng-model="question" placeholder="Ask anything......"></textarea>
+                </div>
+                <div class="form-group">
+                    <input class="form-control" ng-model="tags" placeholder="tags..." type="text">
+                </div>
+                <div class="form-group right-align text-right">
+                    <a type="button" ng-click="post()" class="btn btn-success">Post</a>
+                </div>
+            </div>
+            <div class="row">
+                <div ng-repeat="Qs in qs">
+                    <h3>{{Qs.question}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

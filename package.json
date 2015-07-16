@@ -1,9 +1,9 @@
 {
-  "name": "hackathon-starter",
-  "version": "3.0.2",
+  "name": "thForum",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/ibadnabihashmi/TheForum"
   },
   "scripts": {
     "start": "node app.js",
