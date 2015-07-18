@@ -9,6 +9,10 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
       .when('/account/ask', {
           templateUrl: '/Forum/views/account/Ask.html',
           controller: 'AskCtrl'
+      })
+      .when('/account/myquestion',{
+          templateUrl: '/Forum/views/account/question.html',
+          controller: 'QstnCtrl'
       });
 
       $locationProvider.html5Mode(true);
