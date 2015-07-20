@@ -108,7 +108,7 @@ router.post('/comment',function(req,res,next){
 });
 router.get('/getQues',function(req,res,next){
     Question
-        .find()
+        .find({userID: req.user.id})
         .sort({_id:-1})
         .exec(function(err,questions){
             res.send(200,{
