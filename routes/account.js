@@ -18,7 +18,6 @@ function render(req,res){
 
 router.get('/',render);
 router.get('/ask',render);
-router.get('/myquestion',render);
 
 router.post('/ask',function(req,res,next){
     var question = new Question({
@@ -61,28 +60,6 @@ router.post('/ask',function(req,res,next){
         }
     });
 });
-router.get('/question',function(req,res,next){
-    Question.
-        findById(req.query.qid)
-        .exec(function(err,question){
-            res.send(200,{
-                question:question
-            });
-        });
-});
-router.get('/getComments',function(req,res){
-    Comment.
-        find({questionId:req.query.qid}).
-        populate('byUser').
-        sort({_id:1}).
-        exec(function(err,comments){
-            if(!err){
-                res.send(200,{
-                    comments:comments
-                });
-            }
-        });
-});
 router.post('/comment',function(req,res,next){
     var comment = new Comment({
         date:Date.now(),
@@ -106,6 +83,7 @@ router.post('/comment',function(req,res,next){
         }
     });
 });
+
 router.get('/getQues',function(req,res,next){
     Question
         .find({userID: req.user.id})

@@ -9,8 +9,8 @@ html(ng-app='the-forum')
     link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
     != css('main')
 
-  body(ng-controller="BodyCtrl")
-    div(ng-include="'/Forum/views/partials/header.html'")
+  body
+    div(ng-controller="BodyCtrl" ng-include="'/Forum/views/partials/header.html'")
     #wrapper
       .content.container(ng-view animate-panel='', effect='zoomIn')
     div(ng-include="'/Forum/views/partials/footer.html'")
@@ -27,6 +27,8 @@ html(ng-app='the-forum')
 
     script(src='/Forum/scripts/configs/routes.js')
     script(src='/Forum/scripts/factories/api.js')
+    script(src='/Forum/scripts/services/fetchService.js')
+    script(src='/Forum/scripts/services/sessionService.js')
 
     script(src='/Forum/scripts/controllers/body.js')
     script(src='/Forum/scripts/controllers/account.js')

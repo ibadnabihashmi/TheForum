@@ -1,4 +1,4 @@
-<div ng-controller="QstnCtrl">
+<div>
     <div class="row">
         <div class="col-md-12 text-center">
             <h1>{{Question.question}}</h1>
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div ng-show="user" class="row">
         <div class="form-group">
             <textarea class="form-control" ng-model="aComment" placeholder=":)"></textarea>
         </div>

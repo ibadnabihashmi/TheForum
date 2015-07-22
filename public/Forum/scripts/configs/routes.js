@@ -4,7 +4,7 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
     $routeProvider
         .when('/explore', {
             templateUrl: '/Forum/views/account/explore.html',
-            controller: 'mainCtrl'
+            controller: 'QstnCtrl'
         })
         .when('/account', {
             templateUrl: '/Forum/views/account/profile.html',
@@ -14,10 +14,12 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
             templateUrl: '/Forum/views/account/Ask.html',
             controller: 'AskCtrl'
         })
-        .when('/account/myquestion',{
+        .when('/explore/questionPage', {
             templateUrl: '/Forum/views/account/question.html',
             controller: 'QstnCtrl'
         });
-
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode({
+        enabled: true,
+        requireBase: false
+    });
 });

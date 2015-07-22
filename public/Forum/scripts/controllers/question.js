@@ -1,29 +1,26 @@
-angular.module('the-forum').controller('QstnCtrl',['$rootScope','$scope','$http','$location',function($rootScope,$scope,$http,$location){
-    $scope.Question;
-    $scope.comments = [];
-    var fetchQs = function(){
-        $http.get('/account/question?qid='+$location.search().qid).then(function(res){
-            $scope.Question = res.data.question;
-        });
-    };
-    var fetchAllComments = function(){
-        $http.get('/account/getComments?qid='+$location.search().qid).then(function(res){
-            $scope.comments = res.data.comments;
-        });
-    };
-    var init = function(){
-        fetchQs();
-        fetchAllComments();
-    };
-    $scope.comment = function(){
+angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $location, fetchService, sessionService){
+    sessionService.getSessionInfo().then(function (response) {
+        $scope.user=response;
+    });
+    fetchService.fetchQuestion().then(function (response) {
+        $scope.Question=response;
+    });
+    fetchService.getAllQuestions().then(function (response) {
+        $scope.allQuestions=response;
+    });
+    fetchService.fetchComments().then(function (response) {
+        $scope.comments=response;
+    });
+
+    $scope.comment= function(){
         var data = {
-            qid:$location.search().qid,
+            qid: $location.search().qid,
             comment: $scope.aComment
         };
-        $http.post('/account/comment',data).then(function(res){
+        console.log($scope.aComment);
+        $http.post('/account/comment', data).then(function(res){
             $scope.comments = res.data.comments;
-            $scope.aComment = '';
+            $scope.aComment= '';
         });
     };
-    init();
-}]);
+});
