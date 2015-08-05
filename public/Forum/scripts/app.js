@@ -2,11 +2,9 @@
 angular.module(
     'the-forum',
     [
+        'ui.materialize',
         'ngRoute',
         'ngSanitize',
-        'ui.bootstrap',
-        'ui.directives',
-        'ui.filters',
         'angularFileUpload'
     ]
 );

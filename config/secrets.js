@@ -51,8 +51,8 @@ module.exports = {
   },
 
   facebook: {
-    clientID: process.env.FACEBOOK_ID || '754220301289665',
-    clientSecret: process.env.FACEBOOK_SECRET || '41860e58c256a3d7ad8267d3c1939a4a',
+    clientID: process.env.FACEBOOK_ID || '1483714851923171',
+    clientSecret: process.env.FACEBOOK_SECRET || '25092d9995e9f1eea890b59e4c0acb7a',
     callbackURL: '/auth/facebook/callback',
     passReqToCallback: true
   },
@@ -79,17 +79,17 @@ module.exports = {
   },
 
   google: {
-    clientID: process.env.GOOGLE_ID || '828110519058.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || 'JdZsIaWhUFIchmC1a_IZzOHb',
+    clientID: process.env.GOOGLE_ID || '924683550957-si9122djlp7ajoge3a9e1rva2f2gsro4.apps.googleusercontent.com',
+    clientSecret: process.env.GOOGLE_SECRET || '1jot6ZpWvAwA59AnzKSJa6UP',
     callbackURL: '/auth/google/callback',
     passReqToCallback: true
   },
 
   linkedin: {
-    clientID: process.env.LINKEDIN_ID || '77chexmowru601',
-    clientSecret: process.env.LINKEDIN_SECRET || 'szdC8lN2s2SuMSy8',
+    clientID: process.env.LINKEDIN_ID || '77ybtz699gngks',
+    clientSecret: process.env.LINKEDIN_SECRET || '7nrFKFNFLM8yOElH',
     callbackURL: process.env.LINKEDIN_CALLBACK_URL || 'http://localhost:3000/auth/linkedin/callback',
-    scope: ['r_fullprofile', 'r_emailaddress', 'r_network'],
+    scope: ['r_basicprofile', 'r_emailaddress'],
     passReqToCallback: true
   },
 

@@ -1,6 +1,31 @@
 <div>
-    <h3>Explore Questions</h3>
-    <ul ng-repeat="q in allQuestions">
-        <a href="/explore/questionPage?qid={{q._id}}"><li>{{q.question}}</li></a>
-    </ul>
+    <div>
+        <ul class="tabs z-depth-1" tabs>
+            <li class="tab"><a href="#questions"><i class="material-icons">question_answer</i> Questions</a> </li>
+            <li class="tab"><a href="#hashtags" ng-click="clickForTags()"><i class="material-icons">label_outline</i> Hashtags</a> </li>
+            <li class="tab"><a href="#categories" ng-click="clickForCats()"><i class="material-icons">toc</i> Categories</a> </li>
+        </ul>
+    </div>
+    <div id="questions" class="z-depth-1">
+        <ul  class="collection">
+            <li ng-repeat="q in allQuestions" class="collection-item"><a href="/explore/questionPage?qid={{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">question_answer</i></li>
+        </ul>
+    </div>
+    <div class="z-depth-1" id="hashtags" style="margin-top: 9px">
+        <div style="padding: 10px">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">search</i>
+                <input id="tagSearch" ng-model="tagSearch" type="text" class="validate">
+                <label for="tagSearch">Type in any tag name...</label>
+            </div>
+        </div>
+        <ul  class="collection">
+            <li ng-repeat="tag in tags | filter:tagSearch" class="collection-item yolo"><a href="#" ng-click="fetchQuestionsFromTag(tag._id)">#{{tag.name}}</a> <span style="color: #B5B4B4;">({{tag.questionsTagged.length}})</span><i class="material-icons secondary-content">#</i></li>
+        </ul>
+    </div>
+    <div class="z-depth-1" id="categories" style="margin-top: 9px">
+        <ul class="collection">
+            <li ng-repeat="cat in cats" class="collection-item yolo"><a href="#" ng-click="fetchQuestionsFromCat(cat._id)">{{cat.name}}</a> <span style="color: #B5B4B4;">({{cat.questions.length}})</span><i class="material-icons secondary-content">toc</i></li>
+        </ul>
+    </div>
 </div>

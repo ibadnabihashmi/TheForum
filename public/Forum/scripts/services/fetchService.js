@@ -27,6 +27,26 @@ angular.module('the-forum').factory('fetchService', function($http, $location){
                 console.log(res.data.n);
                 return res.data.n;
             });
+        },
+        getAllTags : function(){
+            return $http.get('/explore/getAllTags').then(function(tags){
+                return tags;
+            });
+        },
+        getAllCats : function(){
+            return $http.get('/explore/getAllCats').then(function(cats){
+                return cats;
+            });
+        },
+        getQuestionsFromTag: function(id){
+            return $http.get('/explore/getQuesFromTag?id='+id).then(function(ques){
+                return ques.data.questions;
+            });
+        },
+        getQuestionsFromCat: function(id){
+            return $http.get('/explore/getQuesFromCat?id='+id).then(function(ques){
+                return ques.data.questions;
+            });
         }
 
     }

@@ -3,6 +3,7 @@ var async = require('async');
 var User = require('../models/User');
 var Question = require('../models/Question');
 var Comment = require('../models/Comment');
+var Category = require('../models/Category');
 
 var Tag = require('../models/Tag');
 var express = require('express');
@@ -10,7 +11,6 @@ var router = express.Router();
 
 
 function render(req,res){
-    console.log('hahahaha');
     res.render('Forum', {
         title: 'Account Management',
         user: req.user
@@ -27,40 +27,75 @@ router.post('/ask',function(req,res,next){
     var question = new Question({
         question : req.body.text,
         tags : req.body.tags.split(','),
+        category : req.body.category,
         date : Date.now(),
         userID : req.user.id
     });
     question.save(function(err){
         if(!err){
-            async.each(req.body.tags.split(','),function(tag,callback){
-                Tag.find({name:tag})
-                    .exec(function(err,tags){
-                        if(tags.length > 0){
-                            tags[0].questionsTagged.push(question._id);
-                            tags[0].save(function(err){
-                                if(!err){
-                                    callback();
-                                }
-                            });
-                        }else{
-                            var _tag = new Tag({
-                                name:tag
-                            });
-                            _tag.questionsTagged.push(question._id);
-                            _tag.save(function(err){
-                                if(!err){
-                                    callback();
-                                }
-                            });
-                        }
-                    });
-            },function(err){
-                if(err){
-                    res.send(500)
-                }else{
-                    res.send(200);
-                }
-            });
+            var saveTags = function(){
+                async.each(req.body.tags.split(','),function(tag,callback){
+                    Tag.find({name:tag})
+                        .exec(function(err,tags){
+                            if(tags.length > 0){
+                                tags[0].questionsTagged.push(question._id);
+                                tags[0].save(function(err){
+                                    if(!err){
+                                        callback();
+                                    }
+                                });
+                            }else{
+                                var _tag = new Tag({
+                                    name:tag
+                                });
+                                _tag.questionsTagged.push(question._id);
+                                _tag.save(function(err){
+                                    if(!err){
+                                        callback();
+                                    }
+                                });
+                            }
+                        });
+                },function(err){
+                    if(err){
+                        res.send(500)
+                    }else{
+                        res.send(200);
+                    }
+                });
+            };
+            Category
+                .find({name:req.body.category})
+                .exec(function(err,cat){
+
+                    if(cat.length > 0){
+                        cat[0].questions.push(question._id);
+                        cat[0].save(function(err){
+                            if(!err){
+
+                                saveTags();
+                            }else{
+                                res.send(500);
+                            }
+                        });
+                    }else{
+                        var _cat = new Category({
+                            name:req.body.category
+                        });
+                        _cat.questions.push(question._id);
+                        _cat.save(function(err){
+                            if(!err){
+
+                                saveTags();
+                            }else{
+                                res.send(500);
+                            }
+                        });
+                    }
+                });
+
+        }else{
+            res.send(500);
         }
     });
 });

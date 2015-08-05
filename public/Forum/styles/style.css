@@ -1,0 +1,42 @@
+nav{
+    background-color: rgb(41, 133, 196);
+}
+.dropdown-content li>a, .dropdown-content li>span {
+    font-size: 1.2rem;
+    color: rgb(41, 133, 196);
+    display: block;
+    padding: 1rem 1rem;
+}
+.btn{
+    background-color: rgb(41, 133, 196);
+}
+.btn:hover{
+    background-color: rgb(46, 163, 236);
+}
+.z-depth-1{
+    background-color: white;
+}
+body{
+    background-color: #E4E4E4;
+}
+.btn-google{
+    background-color: #d14836;;
+}
+.btn-facebook{
+    background-color: #44619D;
+}
+.btn-linkedin{
+    background-color: #1A85BC;
+}
+.btn-google:hover{
+    background-color: #d14836;;
+}
+.btn-facebook:hover{
+    background-color: #44619D;
+}
+.btn-linkedin.hover{
+    background-color: #1A85BC;
+}
+.addColor{
+    color: red;
+}
