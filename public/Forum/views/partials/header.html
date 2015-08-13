@@ -14,11 +14,11 @@
             <ul class="right hide-on-med-and-down">
                 <li ng-show="!user"><a href="/login">Login</a></li>
                 <li ng-show="!user"><a href="/signup">Create Account</a></li>
-                <li ng-show="user"><a href="/account/ask">Ask</a></li>
-                <li ng-show="user"><a href="/account">Profile</a></li>
+                <li ng-show="user"><a href="/account/{{user.username}}/ask">Ask</a></li>
+                <li ng-show="user"><a href="/account/{{user.username}}">Profile</a></li>
                 <li ng-show="user"><a href="/explore">Explore</a></li>
-                <li ng-show="user"><a href="/account/notification">Notifications</a></li>
-                <li ng-show="user"><a href="/account/activity">Activity</a></li>
+                <li ng-show="user"><a href="/account/{{user.username}}/notification">Notifications</a></li>
+                <li ng-show="user"><a href="/account/{{user.username}}/activity">Activity</a></li>
                 <li ng-show="user"><a href="/logout">Logout</a></li>
             </ul>
 
@@ -30,7 +30,7 @@
                 <li ng-show="user"><a href="/explore">Explore</a></li>
                 <li ng-show="user"><a href="/account/notification">Notifications</a></li>
                 <li ng-show="user"><a href="/account/activity">Activity</a></li>
-                <li ng-show="user"><a href="/logout">Logout</a></li>
+                <li ng-show="user"><a href="/">Logout</a></li>
             </ul>
             <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="500" data-closeonclick="false"><i class="material-icons">menu</i></a>
             <a href="/" class="brand-logo">The Forum</a>

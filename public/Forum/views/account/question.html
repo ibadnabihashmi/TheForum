@@ -2,13 +2,21 @@
     <div class="row">
         <div class="col m12 text-center">
             <h1>{{Question.question}}</h1>
-            <span><a href="#" id="thumbsUp" ng-click="thumbsUp(Question)" type="button" class="btn-flat"><i class="material-icons">thumb_up</i></a></span><span><a href="#" id="thumbsDown" ng-click="thumbsDown(Question)" type="button" class="btn-flat"><i class="material-icons">thumb_down</i></a></span>
+            <span>
+                <a href="#" id="thumbsUp" ng-click="thumbsUp(Question)" type="button" class="btn-flat">
+                    <i class="material-icons">thumb_up</i>
+                </a></span>
+            <span>
+                <a href="#" id="thumbsDown" ng-click="thumbsDown(Question)" type="button" class="btn-flat">
+                    <i class="material-icons">thumb_down</i>
+                </a>
+            </span>
         </div>
     </div>
     <div class="row">
         <div class="col m12">
             <div ng-repeat="comment in comments">
-                <p>{{comment.byUser.email}}</p>
+                <p>By: <a href="/account/{{comment.byUser.username}}">{{comment.byUser.username}}</a></p>
                 <h4>{{comment.text}}</h4>
             </div>
         </div>
@@ -16,7 +24,11 @@
     <div ng-show="user" class="row">
         <div class="input-field col s12">
             <textarea id="user.email" ng-model="aComment" class="materialize-textarea"></textarea>
-            <label for="user.email">{{user.email}}</label>
+            <label for="user.email">Asked By:
+                <a href="/account/{{Question.userID.username}}">
+                    {{Question.userID.username}}
+                </a>
+            </label>
         </div>
         <div class="form-group right-align text-right">
             <a type="button" ng-click="comment()" class="btn waves-effect waves-light">Post</a>

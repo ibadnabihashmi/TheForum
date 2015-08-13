@@ -14,10 +14,8 @@ function renderExplore(req,res){
         title: 'Explore'
     });
 }
-
 router.get('/', renderExplore);
-router.get('/questionPage', renderExplore);
-
+router.get('/questionPage/:qid', renderExplore);
 router.get('/getAllQues',function(req,res,next){
     Question
         .find()
@@ -31,7 +29,7 @@ router.get('/getAllQues',function(req,res,next){
 router.get('/getComments',function(req,res){
     Comment.
         find({questionId:req.query.qid}).
-        populate('byUser').
+        populate('byUser', 'username email').
         sort({_id:1}).
         exec(function(err,comments){
             if(!err){
@@ -43,7 +41,7 @@ router.get('/getComments',function(req,res){
 });
 
 router.get('/question',function(req,res,next){
-    Question.findById(req.query.qid).exec(function(err,response){
+    Question.findById(req.query.qid).populate('userID', 'username email').exec(function(err,response){
         res.send(200,{
             question:response
         });

@@ -10,6 +10,11 @@ block content
                     .row
                         .input-field.col.s12.l6
                             i.mdi-content-mail.prefix
+                            input.validate(type='text', name='username', id='username',autofocus=true)
+                            label(for='username') Username
+
+                        .input-field.col.s12.l6
+                            i.mdi-content-mail.prefix
                             input.validate(type='email', name='email', id='email',autofocus=true)
                             label(for='email') Email
                         .input-field.col.s12.l6

@@ -107,7 +107,10 @@ app.get('/user',function(req,res){
 
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
+app.get('/logout', function(req,res){
+    req.logout();
+    res.redirect("/");
+});
 app.get('/forgot', userController.getForgot);
 app.post('/forgot', userController.postForgot);
 app.get('/reset/:token', userController.getReset);
@@ -117,7 +120,7 @@ app.post('/signup', userController.postSignup);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 app.use('/account', passportConf.isAuthenticated, account);
-app.use('/account/ask', passportConf.isAuthenticated, account);
+app.use('/account/:username/ask', passportConf.isAuthenticated, account);
 app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
 app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);

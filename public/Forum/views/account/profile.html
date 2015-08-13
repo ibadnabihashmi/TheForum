@@ -1,68 +1,31 @@
 <div>
-    <div class="page-header">
-        <h3>Profile Information</h3>
-    </div>
     <div class="z-depth-1" style="padding: 20px 52px;">
-        <form action="#" method="POST" class="form-horizontal">
-            <input type="hidden" name="_csrf"/>
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input type="email" name="email" id="email" ng-model="user.email">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">perm_identity</i>
-                    <input type="text" name="name" id="name" value=""/>
-                    <label for="name">Name</label>
-                </div>
-                <p>
-                    <input name="gender" type="radio" id="male" value="male"/>
-                    <label for="male">Male</label>
-                </p>
-                <p>
-                    <input name="gender" type="radio" id="female" value="female"/>
-                    <label for="female">Female</label>
-                </p>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">location_on</i>
-                    <input type="text" name="location" id="location" value="" />
-                    <label for="location">Location</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">http</i>
-                    <input type="text" name="website" id="website" value=""/>
-                    <label for="website">Website</label>
-                </div>
-                <div class="form-group">
-                    <label for="gravatar" class="col-sm-2 control-label">Gravatar</label>
-                    <div class="col-sm-4"><img src="" width="100" height="100" class="profile"/></div>
-                </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                    <i class="material-icons">send</i>
-                </button>
-            </div>
-        </form>
+        <h3>{{userInfo.username}}</h3>
+        <h5>{{userInfo.email}}</h5>
+
+        <a ng-hide="otherUser"
+           class="btn waves-effect waves-light"
+           href="/account/{{userInfo.username}}/settings_profile">Edit Profile</a>
+
+        <button ng-show="otherUser" ng-click="onFollow(follow)" class="btn waves-effect waves-light" >{{follow}}</button>
+
+        <h5>Followers: </h5>
+        <div ng-if="userInfo.followers.length===0">
+            <span ng-hide="otherUser">You</span>
+            <span ng-show="otherUser">{{userInfo.username}}</span>
+            ain't got no followers</div>
+        <div ng-repeat="person in userInfo.followers">
+            <a href="/account/{{person.username}}">{{person.username}}</a>
+        </div>
+        <h5>Following: </h5>
+        <div ng-if="userInfo.following.length===0">
+            <span ng-hide="otherUser">You</span>
+            <span ng-show="otherUser">{{userInfo.username}}</span>
+            ain't following no 1</div>
+        <div ng-repeat="person in userInfo.following">
+            <a href="/account/{{person.username}}">{{person.username}}</a>
+            <button ng-hide="otherUser" class="waves-effect waves-teal btn-flat" ng-click="onFollow(person._id)">Unfollow</button>
+        </div>
     </div>
-    <div class="page-header">
-        <h3>Change Password</h3>
-    </div>
-    <div class="z-depth-1" style="padding: 20px 52px;">
-        <form action="#" method="POST" class="form-horizontal">
-            <input type="hidden" name="_csrf"/>
-            <div class="row">
-                <div class="input-field col s6"><i class="mdi-communication-vpn-key prefix"></i>
-                    <input type="password" name="password" id="password" autofocus="autofocus"/>
-                    <label for="password">Password</label>
-                </div>
-                <div class="input-field col s6"><i class="mdi-communication-vpn-key prefix"></i>
-                    <input type="password" name="confirmPassword" id="confirmPassword" autofocus="autofocus"/>
-                    <label for="confirmPassword">Confirm Password</label>
-                </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                    <i class="material-icons">send</i>
-                </button>
-            </div>
-        </form>
-    </div>
+
 </div>
