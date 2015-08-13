@@ -1,20 +1,14 @@
-angular.module('the-forum').controller('AskCtrl',['$scope','$http',function($scope,$http){
+angular.module('the-forum').controller('AskCtrl', function($scope, $http, $routeParams, fetchService){
     $scope.select = {
-        choices : [
-            "science",
-            "cuture",
-            "gossip",
-            "paparazzi",
-            "showbiz",
-            "share market"
-        ]
+        choices : ["science", "cuture", "gossip", "paparazzi", "showbiz", "share market"]
     };
-    var getAllQues = function(){
-        $http.get('/account/getQues')
-            .then(function(res){
-                $scope.qs = res.data.questions;
-            });
+
+    var getUserQuestions=function(){
+        fetchService.getUserQuestions().then(function (response) {
+            $scope.qs=response;
+        });
     };
+
     $scope.post = function(){
         var tags = [];
         var yolo ;
@@ -26,16 +20,15 @@ angular.module('the-forum').controller('AskCtrl',['$scope','$http',function($sco
         }else{
             tags = [];
         }
-
         var question = {
             text : $scope.question,
             tags : tags.join(),
             category : $scope.select.value1
         };
-        $http.post('/account/ask',question)
+        $http.post('/account/:username/ask',question)
             .then(function(res){
-                getAllQues();
+                getUserQuestions();
             });
     };
-    getAllQues();
-}]);
+    getUserQuestions();
+});

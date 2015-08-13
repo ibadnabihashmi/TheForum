@@ -8,7 +8,7 @@
     </div>
     <div id="questions" class="z-depth-1">
         <ul  class="collection">
-            <li ng-repeat="q in allQuestions" class="collection-item"><a href="/explore/questionPage?qid={{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">question_answer</i></li>
+            <li ng-repeat="q in allQuestions" class="collection-item"><a href="/explore/questionPage/{{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">question_answer</i></li>
         </ul>
     </div>
     <div class="z-depth-1" id="hashtags" style="margin-top: 9px">

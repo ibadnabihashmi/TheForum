@@ -4,11 +4,9 @@ var User = require('../models/User');
 var Question = require('../models/Question');
 var Comment = require('../models/Comment');
 var Category = require('../models/Category');
-
 var Tag = require('../models/Tag');
 var express = require('express');
 var router = express.Router();
-
 
 function render(req,res){
     res.render('Forum', {
@@ -17,14 +15,104 @@ function render(req,res){
     });
 }
 
-router.get('/',render);
-router.get('/ask',render);
-router.get('/notification', render);
-router.get('/activity', render);
-router.get('/profile', render);
+router.post('/comment',function(req,res,next){
+    var comment = new Comment({
+        date:Date.now(),
+        text:req.body.comment,
+        byUser:req.user.id,
+        questionId:req.body.qid
+    });
+    comment.save(function(err){
+        if(!err){
+            Comment.find({questionId:req.body.qid}).populate('byUser').sort({_id:1}).exec(function(err,comments){
+                if(!err){
+                    res.send(200,{
+                        comments:comments
+                    });
+                }
+            });
+        }
+    });
+});
 
+router.get('/getNotifications',function(req,res,next){
+    User.findById(req.user.id, 'notifications -_id')
+        .populate('notifications.qID', 'question')
+        .exec(function(error, response){
+            res.send(200,{
+                n: response.notifications
+            });
+        });
+});
+router.get('/getActivity',function(req,res,next){
+    User.findById(req.user.id, 'activity -_id')
+        .populate('activity.qID', 'question')
+        .exec(function(error, response){
+            res.send(200,{
+                a: response.activity
+            });
+        });
+});
 
-router.post('/ask',function(req,res,next){
+function followService(userOne, userTwo, theMethod, theArray){
+
+    User.findByIdAndUpdate(userOne, { theMethod: {theArray: userTwo}
+    }).exec(function(e, user){
+        return user;
+    });
+}
+
+router.post('/follow',function(req, res){
+    async.parallel([
+        function(cb){ User.findByIdAndUpdate(req.user.id, { $addToSet: {following: req.query.userId}}).exec(cb)},
+        function(cb){ User.findByIdAndUpdate(req.query.userId, { $addToSet: {followers: req.user.id}}).exec(cb)}
+    ], function(err, result){
+        if (err) console.log(err);
+        else res.send(200,{
+            user: "success"
+        });
+    });
+});
+
+router.post('/unfollow',function(req, res){
+    async.parallel([
+        function(cb){ User.findByIdAndUpdate(req.user.id, { $pull: {following: req.query.userId}}).exec(cb)},
+        function(cb){ User.findByIdAndUpdate(req.query.userId, { $pull: {followers: req.user.id}}).exec(cb)}
+    ], function(err, result){
+        if (err) console.log(err);
+        else res.send(200,{
+            user: "success"
+        });
+    });
+});
+
+router.get('/:username',render);
+router.get('/:username/ask',render);
+router.get('/:username/notification', render);
+router.get('/:username/activity', render);
+router.get('/:username/settings_profile', render);
+
+router.post('/:username/notify',function(req, res){
+    console.log(req.query.qUser);
+    console.log(req.query.qId);
+    console.log(req.query.postedBy);
+    if(req.query.qUser!=req.user.id){
+        User.findByIdAndUpdate(req.query.qUser, { $addToSet:
+        {notifications: {qID: req.query.qId,  commentedBy: req.query.postedBy}}
+        }).exec(function(e, userInfo){
+            res.send(200,{
+                userInfo: userInfo
+            });
+        });
+    }
+    else{
+        //Activity Code here
+        console.log("User posted on their own question");
+    }
+
+});
+
+router.post('/:username/ask',function(req,res,next){
     var question = new Question({
         question : req.body.text,
         tags : req.body.tags.split(','),
@@ -100,30 +188,6 @@ router.post('/ask',function(req,res,next){
         }
     });
 });
-router.post('/comment',function(req,res,next){
-    var comment = new Comment({
-        date:Date.now(),
-        text:req.body.comment,
-        byUser:req.user.id,
-        questionId:req.body.qid
-    });
-    comment.save(function(err){
-        if(!err){
-            Comment.
-                find({questionId:req.body.qid}).
-                populate('byUser').
-                sort({_id:1}).
-                exec(function(err,comments){
-                    if(!err){
-                        res.send(200,{
-                            comments:comments
-                        });
-                    }
-
-                });
-        }
-    });
-});
 /*
  router.post('/notify',function(req,res,next){
  Question.findById(req.query.qid).exec(function(err,questionInfo){
@@ -140,55 +204,29 @@ router.post('/comment',function(req,res,next){
  });
  */
 
-
-
-router.post('/notify',function(req,res,next){
-
-    Question.findById(req.query.qid).exec(function(err,questionInfo){
-        if(questionInfo.userID!=req.user.id){
-            User.findByIdAndUpdate(questionInfo.userID, { $addToSet:
-            {notifications: {qID: req.query.qid,  commentedBy: req.user.email }}
-            }).exec(function(e, userInfo){
-                res.send(200,{
-                    userInfo: userInfo
-                });
-            });
-        }
-        else{
-            //Activity Code here
-
-        }
-    });
-});
-
-
-router.get('/getQues',function(req,res,next){
+router.get('/:username/getQues',function(req,res,next){
+    console.log("here");
     Question
         .find({userID: req.user.id})
         .sort({_id:-1})
         .exec(function(error, questions){
+            console.log(error);
             res.send(200,{
                 questions:questions
             });
         });
 });
-router.get('/getNotifications',function(req,res,next){
-    User.findById(req.user.id, 'notifications -_id')
-        .populate('notifications.qID', 'question')
-        .exec(function(error, response){
+
+router.get('/:username/getUser',function(req,res,next){
+    User.findOne({username: req.params.username})
+        .select('username email following followers')
+        .populate('following followers', 'username')
+        .exec(function(error, info){
             res.send(200,{
-                n: response.notifications
+                userInfo:info
             });
         });
 });
-router.get('/getActivity',function(req,res,next){
-    User.findById(req.user.id, 'activity -_id')
-        .populate('activity.qID', 'question')
-        .exec(function(error, response){
-            res.send(200,{
-                a: response.activity
-            });
-        });
-});
+
 
 module.exports = router;

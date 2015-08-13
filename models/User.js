@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var userSchema = new mongoose.Schema({
+    username: {type: String},
     email: { type: String, unique: true, lowercase: true },
     password: String,
     notifications: [{
@@ -10,6 +11,15 @@ var userSchema = new mongoose.Schema({
         commentedBy: String,
         date: {type: Date, default: Date.now}
     }],
+
+    followers:{
+        type : [mongoose.Schema.Types.ObjectId],
+        ref : 'User'
+    },
+    following: {
+        type : [mongoose.Schema.Types.ObjectId],
+        ref : 'User'
+    },
 
     facebook: String,
     twitter: String,
@@ -26,7 +36,6 @@ var userSchema = new mongoose.Schema({
         website: { type: String, default: '' },
         picture: { type: String, default: '' }
     },
-
     resetPasswordToken: String,
     resetPasswordExpires: Date
 });

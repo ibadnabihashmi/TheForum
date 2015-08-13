@@ -21,7 +21,8 @@ var questionSchema = new mongoose.Schema({
     },
     tags : [String],
     userID : {
-        type : mongoose.Schema.Types.ObjectId
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
     }
 });
 

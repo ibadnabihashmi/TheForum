@@ -1,6 +1,12 @@
 <div>
-    <h3>Notifications:</h3>
-    <div ng-repeat="n in notifications">
-        <p><a href="/explore/questionPage?qid={{n.qID._id}}">{{n.commentedBy}} posted on your Question "{{n.qID.question}}" on {{n.date}}</a></p>
+    <div class="z-depth-1" style="padding: 20px 52px;">
+        <h3>Notifications:</h3>
+        <div ng-repeat="n in notifications">
+            <p>
+                <a href="/explore/questionPage/{{n.qID._id}}">
+                    {{n.commentedBy}} posted on your Question "{{n.qID.question}}" on {{n.date}}
+                </a>
+            </p>
+        </div>
     </div>
 </div>
