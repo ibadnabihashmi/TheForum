@@ -16,7 +16,7 @@
     <div ng-show="user" class="row">
         <div class="input-field col s12">
             <textarea id="user.email" ng-model="aComment" class="materialize-textarea"></textarea>
-            <label for="user.email">{{user.email}}</label>
+            <label for="user.email">{{user.email?user.email:user.profile.name}}</label>
         </div>
         <div class="form-group right-align text-right">
             <a type="button" ng-click="comment()" class="btn waves-effect waves-light">Post</a>

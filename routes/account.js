@@ -21,6 +21,7 @@ router.get('/',render);
 router.get('/ask',render);
 router.get('/notification', render);
 router.get('/activity', render);
+router.get('/profile', render);
 
 
 router.post('/ask',function(req,res,next){

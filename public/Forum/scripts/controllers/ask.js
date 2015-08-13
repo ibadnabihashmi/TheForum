@@ -32,10 +32,8 @@ angular.module('the-forum').controller('AskCtrl',['$scope','$http',function($sco
             tags : tags.join(),
             category : $scope.select.value1
         };
-alert("yolo");
         $http.post('/account/ask',question)
             .then(function(res){
-                alert("yolo");
                 getAllQues();
             });
     };

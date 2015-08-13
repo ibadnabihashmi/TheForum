@@ -27,6 +27,10 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
         .when('/explore/questionPage', {
             templateUrl: '/Forum/views/account/question.html',
             controller: 'QstnCtrl'
+        })
+
+        .when('/user/profile', {
+            templateUrl: '/Forum/views/account/profileCard.html'
         });
     $locationProvider.html5Mode({
         enabled: true,
