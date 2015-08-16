@@ -15,6 +15,13 @@ function render(req,res){
     });
 }
 
+
+router.get('/:username',render);
+router.get('/:username/ask',render);
+router.get('/:username/notification', render);
+router.get('/:username/activity', render);
+router.get('/:username/settings_profile', render);
+
 router.post('/comment',function(req,res,next){
     var comment = new Comment({
         date:Date.now(),
@@ -86,11 +93,6 @@ router.post('/unfollow',function(req, res){
     });
 });
 
-router.get('/:username',render);
-router.get('/:username/ask',render);
-router.get('/:username/notification', render);
-router.get('/:username/activity', render);
-router.get('/:username/settings_profile', render);
 
 router.post('/:username/notify',function(req, res){
     console.log(req.query.qUser);
@@ -118,7 +120,8 @@ router.post('/:username/ask',function(req,res,next){
         tags : req.body.tags.split(','),
         category : req.body.category,
         date : Date.now(),
-        userID : req.user.id
+        userID : req.user.id,
+        type:'question'
     });
     question.save(function(err){
         if(!err){
@@ -188,26 +191,14 @@ router.post('/:username/ask',function(req,res,next){
         }
     });
 });
-/*
- router.post('/notify',function(req,res,next){
- Question.findById(req.query.qid).exec(function(err,questionInfo){
- Notification.findOneAndUpdate({ userId: questionInfo.userID }, { $addToSet:
- { n: {question: questionInfo.question,  byUser: req.user.email, date: Date.now(), comment: req.body.comment}}
- }).exec(function(e, response){
- //console.log(userInfo);
- res.send(200,{
- data: response
- });
- });
 
- });
- });
- */
 
 router.get('/:username/getQues',function(req,res,next){
-    console.log("here");
     Question
-        .find({userID: req.user.id})
+        .find({
+            userID: req.user.id,
+            type: 'question'
+        })
         .sort({_id:-1})
         .exec(function(error, questions){
             console.log(error);

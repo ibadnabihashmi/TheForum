@@ -16,6 +16,16 @@ var questionSchema = new mongoose.Schema({
         type : [mongoose.Schema.Types.ObjectId],
         ref : 'User'
     },
+    type : {
+        type : String
+    },
+    options : [
+        {
+            text: {type:String},
+            votes: [mongoose.Schema.Types.ObjectId],
+            comments: [mongoose.Schema.Types.ObjectId]
+        }
+    ],
     date : {
         type : Date
     },

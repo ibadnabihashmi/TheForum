@@ -5,14 +5,29 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
                 return res.data.questions;
             });
         },
+        getUserPolls: function(){
+            return $http.get('/poll/getPolls').then(function(res){
+                return res.data.polls;
+            });
+        },
         fetchQuestion: function(){
             return $http.get('/explore/question?qid='+$routeParams.qid).then(function(res){
                 return res.data.question;
             });
         },
+        fetchPoll: function(){
+            return $http.get('/explore/poll/'+$routeParams.pid).then(function(res){
+                return res.data.poll;
+            });
+        },
         fetchComments: function(){
             return $http.get('/explore/getComments?qid='+$routeParams.qid).then(function(res){
                 return res.data.comments;
+            });
+        },
+        fetchAllPollComments: function(){
+            return $http.get('/explore/getPollComments/'+$routeParams.pid).then(function(res){
+                return res;
             });
         },
         getAllQuestions: function(){

@@ -5,7 +5,6 @@
         });
         fetchService.fetchQuestion().then(function (response) {
             $scope.Question=response;
-            console.log(response);
         });
 
         fetchService.getAllQuestions().then(function (response) {
@@ -25,7 +24,6 @@
                 $scope.comments = response;
                 $scope.aComment = '';
             });
-            console.log($scope.Question);
             var notifyData={
                 postedBy: $scope.user.username,
                 qUser: $scope.Question.userID._id,

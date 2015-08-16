@@ -30,6 +30,7 @@ var userController = require('./routes/user');
 var account = require('./routes/account');
 var explore = require('./routes/explore');
 var question = require('./routes/question');
+var poll = require('./routes/poll');
 
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -127,6 +128,7 @@ app.post('/account/delete', passportConf.isAuthenticated, userController.postDel
 app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
 app.use('/explore', explore);
 app.use('/question', question);
+app.use('/poll', poll);
 
 /**
  * API examples routes.

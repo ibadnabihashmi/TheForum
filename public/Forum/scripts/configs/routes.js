@@ -30,7 +30,14 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
             templateUrl: '/Forum/views/account/question.html',
             controller: 'QstnCtrl'
         })
-
+        .when('/explore/pollPage/:pid', {
+            templateUrl: '/Forum/views/account/polling.html',
+            controller: 'PollController'
+        })
+        .when('/poll', {
+            templateUrl: '/Forum/views/account/poll.html',
+            controller: 'PollController'
+        })
         .when('/user/profile', {
             templateUrl: '/Forum/views/account/profileCard.html'
         });

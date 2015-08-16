@@ -8,6 +8,12 @@ var commentSchema = new mongoose.Schema({
     date : {
         type : Date
     },
+    for : {
+        type: String
+    },
+    side : {
+        type: Number
+    },
     questionId:{
         type: mongoose.Schema.Types.ObjectId
     },

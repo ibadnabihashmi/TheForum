@@ -8,7 +8,12 @@
     </div>
     <div id="questions" class="z-depth-1">
         <ul  class="collection">
-            <li ng-repeat="q in allQuestions" class="collection-item"><a href="/explore/questionPage/{{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">question_answer</i></li>
+            <div class="collection-item" ng-repeat="q in allQuestions" ng-if="q.type == 'question'">
+                <li><a href="/explore/questionPage/{{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">question_answer</i></li>
+                </div>
+            <div class="collection-item" ng-repeat="q in allQuestions" ng-if="q.type == 'poll'">
+                <li><a href="/explore/pollPage/{{q._id}}">{{q.question}}</a><i class="material-icons secondary-content">thumbs_up_down</i></li>
+            </div>
         </ul>
     </div>
     <div class="z-depth-1" id="hashtags" style="margin-top: 9px">

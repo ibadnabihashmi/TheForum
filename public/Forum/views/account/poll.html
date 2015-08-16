@@ -1,0 +1,47 @@
+<div>
+    <div class="row">
+        <div class="col m12">
+            <div class="row z-depth-1" style="padding: 20px;">
+                <div class="input-field col s12">
+                    <textarea id="poll" ng-model="Poll.text" class="materialize-textarea"></textarea>
+                    <label for="poll">create a poll, yeah you can use #hashies</label>
+                </div>
+                <div >
+                    <div class="input-field col m5">
+                        <input id="pollopt1" type="text" ng-model="Poll.opt1">
+                        <label for="pollopt1">option 1</label>
+                    </div>
+                    <div class="col m2 text-center center-align">
+                        <h2>
+                            Or
+                        </h2>
+                    </div>
+                    <div class="input-field col m5">
+                        <input id="pollopt2" type="text" ng-model="Poll.opt2">
+                        <label for="pollopt2">option 2</label>
+                    </div>
+                </div>
+                <div>
+                    <div class="section col m6">
+                        <select class="" ng-model="select.value1" material-select watch>
+                            <option ng-repeat="value in select.choices">{{value}}</option>
+                        </select>
+                    </div>
+                    <div class="col m6 right-align text-right">
+                        <a type="button" class="btn waves-effect waves-light ng-class:{'disabled':Poll.text == undefined || Poll.text == '' ||
+                        Poll.opt1 == undefined || Poll.opt1 == '' ||
+                        Poll.opt2 == undefined || Poll.opt2 == '' ||
+                         select.value1 == undefined}" ng-click="createPoll()">create poll</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row z-depth-1" ng-repeat="poll in polls" style="padding: 20px;">
+                <div class="row">
+                    <div>
+                        <a href="/explore/pollPage/{{poll._id}}"><h3>{{poll.question}}</h3></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
