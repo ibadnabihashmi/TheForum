@@ -21,8 +21,8 @@
 
 module.exports = {
 
-  //db: process.env.MONGODB || 'mongodb://localhost:27017/forum',
-  db: process.env.MONGODB || 'mongodb://ibadnabihashmi:25tolife@ds029338.mongolab.com:29338/theforum',
+  db: process.env.MONGODB || 'mongodb://localhost:27017/forum',
+  //db: process.env.MONGODB || 'mongodb://ibadnabihashmi:25tolife@ds029338.mongolab.com:29338/theforum',
 
   sessionSecret: process.env.SESSION_SECRET || 'Your Session Secret goes here',
 

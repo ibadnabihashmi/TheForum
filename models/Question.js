@@ -5,16 +5,18 @@ var questionSchema = new mongoose.Schema({
     question : {
         type : String
     },
-    category : {
+    code : {
         type : String
     },
-    likes : {
-        type : [mongoose.Schema.Types.ObjectId],
-        ref : 'User'
-    },
-    dislikes : {
-        type : [mongoose.Schema.Types.ObjectId],
-        ref : 'User'
+    rating : {
+        average : {
+            type : Number,
+            default:1
+        },
+        ratedBy : {
+            type:[mongoose.Schema.Types.ObjectId],
+            default:[]
+        }
     },
     type : {
         type : String
@@ -33,6 +35,10 @@ var questionSchema = new mongoose.Schema({
     userID : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
+    },
+    to: {
+        type : [mongoose.Schema.Types.ObjectId],
+            ref : 'User'
     }
 });
 

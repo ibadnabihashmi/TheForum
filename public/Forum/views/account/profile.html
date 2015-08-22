@@ -1,31 +1,92 @@
 <div>
     <div class="z-depth-1" style="padding: 20px 52px;">
-        <h3>{{userInfo.username}}</h3>
-        <h5>{{userInfo.email}}</h5>
+        <div class="row">
+            <div class="col m2" style="margin-top: 20px;">
+                <div class="">
+                    <img src="{{userInfo.profile.picture}}" alt="" class="circle responsive-img z-depth-2">
+                </div>
+            </div>
+            <div class="col m7">
+                <span><h3>{{userInfo.profile.name}}</h3></span>
+                <span>
+                    <h5>@{{userInfo.username}}</h5>
+                </span>
+                <button ng-show="otherUser" ng-click="onFollow(follow)" class="btn btn-follow waves-effect " >{{follow}}</button>
+                <button ng-show="otherUser" class="btn btn-ask waves-effect " href='#askModal' modal>ask me</button>
+            </div>
+            <div>
+                <div class="col m1 text-center center-align" style="margin-top: 30px;">
+                    <a class="btn-floating btn-small waves-effect waves-light red" ng-click="imFollowing()"  href='#Modal' modal><i class="material-icons">perm_identity</i></a>
 
-        <a ng-hide="otherUser"
-           class="btn waves-effect waves-light"
-           href="/account/{{userInfo.username}}/settings_profile">Edit Profile</a>
+                </div>
+                <div class="col m1 text-center center-align" style="margin-top: 30px;">
+                    <a class="btn-floating btn-small waves-effect waves-light red" ng-click="myFollowers()" href='#Modal' modal><i class="material-icons">supervisor_account</i></a>
 
-        <button ng-show="otherUser" ng-click="onFollow(follow)" class="btn waves-effect waves-light" >{{follow}}</button>
-
-        <h5>Followers: </h5>
-        <div ng-if="userInfo.followers.length===0">
-            <span ng-hide="otherUser">You</span>
-            <span ng-show="otherUser">{{userInfo.username}}</span>
-            ain't got no followers</div>
-        <div ng-repeat="person in userInfo.followers">
-            <a href="/account/{{person.username}}">{{person.username}}</a>
+                </div>
+                <div class="col m1 text-center center-align" style="margin-top: 30px;">
+                    <a ng-hide="otherUser" class="btn-floating btn-small waves-effect waves-light red" href="/account/{{userInfo.username}}/settings_profile"><i class="material-icons">settings</i></a>
+                </div>
+            </div>
         </div>
-        <h5>Following: </h5>
-        <div ng-if="userInfo.following.length===0">
-            <span ng-hide="otherUser">You</span>
-            <span ng-show="otherUser">{{userInfo.username}}</span>
-            ain't following no 1</div>
-        <div ng-repeat="person in userInfo.following">
-            <a href="/account/{{person.username}}">{{person.username}}</a>
-            <button ng-hide="otherUser" class="waves-effect waves-teal btn-flat" ng-click="onFollow(person._id)">Unfollow</button>
+
+    </div>
+    <div class="z-depth-1" style="padding: 20px 52px; margin-top: 20px">
+        <div class="row">
+            <div ng-repeat="post in userPosts" class="col m12 comment">
+                <div class="col m12">
+                    <div class="row commentHead">
+                        <div class="col m1"><img src="{{userInfo.profile.picture}}" alt="" class="circle responsive-img z-depth-1"></div>
+                        <div class="col m11"><p><a href="/account/{{userInfo.username}}">@{{userInfo.username}}</a></p></div>
+                    </div>
+                    <div class="row">
+                        <div class="collection-item" ng-repeat="q in allQuestions" ng-if="q.type == 'poll'">
+                            <li><a href="/explore/pollPage/{{post._id}}">{{q.question}}</a><i class="material-icons secondary-content">thumbs_up_down</i></li>
+                        </div>
+                        <a ng-if="post.type == 'poll'" href="/explore/pollPage/{{post._id}}"><h3>{{post.question}}</h3></a>
+                        <a ng-if="post.type == 'question'" href="/explore/questionPage/{{post._id}}"><h3>{{post.question}}</h3></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
+    <div id="askModal" class="modal">
+        <div class="modal-content">
+            <h4><a href="/account/{{userInfo.username}}">@{{userInfo.username}}</a></h4>
+            <div class="input-field col m12">
+                <textarea ng-model="question" class="materialize-textarea"></textarea>
+                <div class="col m12 right-align text-right">
+                    <a type="button" class="btn waves-effect waves-light" ng-click="askMe()">ask</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="Modal" class="modal">
+        <div class="modal-content">
+            <h4>{{light.header}}<span class="follow-label z-depth-1">{{light.length}}</span></h4>
+            <ul class="collection" ng-if="showFollow_err_ing">
+                <div ng-if="userInfo.following.length===0">
+                    <span ng-hide="otherUser">You</span>
+                    <span ng-show="otherUser">{{userInfo.username}}</span>
+                    ain't following no 1</div>
+                <div ng-repeat="person in userInfo.following" class="collection-item avatar">
+                    <img src="http://www.cliniquetagmed.com/files/2012/08/gravatar.jpg" alt="" class="circle responsive-img">
+                    <a href="/account/{{person.username}}" class="modal-action modal-close">{{person.username}}</a>
+                    <button ng-if="user.following.indexOf(person._id) != -1" ng-click="unFollowPlease(person._id)" class="btn btn-follow waves-effect secondary-content">Unfollow</button>
+                    <button ng-if="user.following.indexOf(person._id) == -1" ng-click="followPlease(person._id)" class="btn btn-follow waves-effect secondary-content">follow</button>
+                </div>
+            </ul>
+            <ul class="collection" ng-if="!showFollow_err_ing">
+                <div ng-if="userInfo.followers.length===0">
+                    <span ng-hide="otherUser">You</span>
+                    <span ng-show="otherUser">{{userInfo.username}}</span>
+                    ain't got no followers</div>
+                <div ng-repeat="person in userInfo.followers" class="collection-item avatar">
+                    <img src="http://www.cliniquetagmed.com/files/2012/08/gravatar.jpg" alt="" class="circle responsive-img">
+                    <a href="/account/{{person.username}}" class="modal-action modal-close">{{person.username}}</a>
+                    <button ng-if="user.following.indexOf(person._id) != -1" ng-click="unFollowPlease(person._id)" class="btn btn-follow waves-effect secondary-content">Unfollow</button>
+                    <button ng-if="user.following.indexOf(person._id) == -1" ng-click="followPlease(person._id)" class="btn btn-follow waves-effect secondary-content">follow</button>
+                </div>
+            </ul>
+        </div>
+    </div>
 </div>

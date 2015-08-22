@@ -2,7 +2,8 @@ angular.module('the-forum').controller('AskCtrl', function($scope, $http, $route
     $scope.select = {
         choices : ["science", "cuture", "gossip", "paparazzi", "showbiz", "share market"]
     };
-
+    $scope.showCodeEditor = false;
+    $scope.plscode = "//write or paste code here;";
     var getUserQuestions=function(){
         fetchService.getUserQuestions().then(function (response) {
             $scope.qs=response;
@@ -25,10 +26,22 @@ angular.module('the-forum').controller('AskCtrl', function($scope, $http, $route
             tags : tags.join(),
             category : $scope.select.value1
         };
+        if($scope.showCodeEditor){
+            question.code = $scope.plscode;
+        }
         $http.post('/account/:username/ask',question)
             .then(function(res){
                 getUserQuestions();
             });
     };
+
+    $scope.showEditor = function(bool){
+        $scope.showCodeEditor = bool;
+        if(!bool){
+            $scope.codeModel = '';
+        }
+    };
+
+
     getUserQuestions();
 });

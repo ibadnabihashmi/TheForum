@@ -5,6 +5,9 @@ var commentSchema = new mongoose.Schema({
     text: {
         type: String
     },
+    code : {
+        type : String
+    },
     date : {
         type : Date
     },
@@ -19,6 +22,14 @@ var commentSchema = new mongoose.Schema({
     },
     byUser :{
         type : mongoose.Schema.Types.ObjectId,
+        ref : 'User'
+    },
+    likes : {
+        type : [mongoose.Schema.Types.ObjectId],
+        ref : 'User'
+    },
+    dislikes : {
+        type : [mongoose.Schema.Types.ObjectId],
         ref : 'User'
     }
 });

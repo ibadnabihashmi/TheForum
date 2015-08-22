@@ -6,7 +6,6 @@ angular.module('the-forum').factory('commentService', function($http){
             });
         },
         notifyUser: function(notifyData){
-            console.log(notifyData);
             return $http.post('/account/'+notifyData.username+'/notify' +
                 '?qUser='+ notifyData.qUser +
                 '&qId='+ notifyData.qId +

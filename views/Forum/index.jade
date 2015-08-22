@@ -9,8 +9,8 @@ html(ng-app='the-forum')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css')
 
-    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" ,rel="stylesheet")
+    link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/Forum/styles/style.css')
 
   body
@@ -21,6 +21,8 @@ html(ng-app='the-forum')
 
     script(src='/js/lib/jquery-2.1.3.min.js')
     script(src='/scripts/angular.min.js')
+    script(src='//ace.c9.io/build/src/ace.js')
+    script(src='//angular-ui.github.io/ui-ace/dist/ui-ace.min.js')
     //script(src='/scripts/angular-ui.min.js')
     script(src='/scripts/angular-route.min.js')
     script(src='/scripts/angular-sanitize.min.js')
@@ -40,6 +42,7 @@ html(ng-app='the-forum')
     script(src='/Forum/scripts/services/postService.js')
 
     script(src='/Forum/scripts/directives/followDirective.js')
+    script(src='/Forum/scripts/directives/fiveStar.js')
 
     script(src='/Forum/scripts/controllers/body.js')
     script(src='/Forum/scripts/controllers/account.js')

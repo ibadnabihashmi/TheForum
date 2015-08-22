@@ -9,16 +9,15 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/thumbsUp',function(req,res){
-    Question
-        .findById(req.body.question._id)
-        .exec(function(err,question){
+    Comment
+        .findById(req.body.comment._id)
+        .exec(function(err,comment){
             if(!err){
-                if(question.dislikes.indexOf(req.user.id) != -1){
-                    console.log("present " + question.dislikes.indexOf(req.user.id));
-                    question.dislikes.splice(question.dislikes.indexOf(req.user.id),question.dislikes.indexOf(req.user.id)+1);
+                if(comment.dislikes.indexOf(req.user.id) != -1){
+                    comment.dislikes.splice(comment.dislikes.indexOf(req.user.id),comment.dislikes.indexOf(req.user.id)+1);
                 }
-                question.likes.push(req.user.id);
-                question.save(function(err){
+                comment.likes.push(req.user.id);
+                comment.save(function(err){
                     if(!err){
                         res.send(200);
                     }
@@ -27,20 +26,43 @@ router.post('/thumbsUp',function(req,res){
         });
 });
 router.post('/thumbsDown',function(req,res){
-    Question
-        .findById(req.body.question._id)
-        .exec(function(err,question){
+    Comment
+        .findById(req.body.comment._id)
+        .exec(function(err,comment){
             if(!err){
-                if(question.likes.indexOf(req.user.id) != -1){
-                    console.log("present " + question.likes.indexOf(req.user.id));
-                    question.likes.splice(question.likes.indexOf(req.user.id),question.likes.indexOf(req.user.id)+1);
+                if(comment.likes.indexOf(req.user.id) != -1){
+                    comment.likes.splice(comment.likes.indexOf(req.user.id),comment.likes.indexOf(req.user.id)+1);
                 }
-                question.dislikes.push(req.user.id);
-                question.save(function(err){
+                comment.dislikes.push(req.user.id);
+                comment.save(function(err){
                     if(!err){
                         res.send(200);
                     }
                 });
+            }
+        });
+});
+router.post('/rate',function(req,res){
+    Question
+        .findById(req.body.qid)
+        .exec(function(err,question){
+            if(question){
+                question.rating.average = (question.rating.ratedBy.length == 0) ? req.body.rating : Math.floor((req.body.rating + question.rating.average)/2);
+                question.rating.ratedBy.push(req.user.id);
+                question.save(function(err){
+                    if(!err){
+                        res.send(200,{
+                            question:question
+                        });
+                    }else{
+                        res.send(500,{
+                            err:err
+                        });
+                    }
+                });
+
+            }else{
+                res.send(404);
             }
         });
 });

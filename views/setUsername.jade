@@ -1,0 +1,33 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='IE=edge')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        meta(name='csrf-token', content=_csrf)
+        title #{title} - the forum
+        link(rel='stylesheet', href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css')
+        link(rel='stylesheet', href='/Forum/styles/style.css')
+    body
+        .container
+            include partials/flash
+            .page-header
+                h3 Pick a unique username
+            .row
+                .col.s12.z-depth-1.pageMargin
+                    .row
+                        form.col.s12(method='POST',action='/setUsername')
+                            .row
+                                .input-field.col.s12.l6
+                                    i.mdi-content-mail.prefix
+                                    input.validate(type='text', name='username', id='username',autofocus=true)
+                                    label(for='username') username
+                            .row.center-align
+                                .col.s12.m6
+                                    button.btn.btn-invisume.waves-effect.waves-light(type='submit', name='action')
+                                        | set
+                                        i.mdi-content-send.right
+        include partials/footer
+        != js('application')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js')

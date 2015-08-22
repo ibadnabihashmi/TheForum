@@ -3,7 +3,6 @@
         <ul class="tabs z-depth-1" tabs>
             <li class="tab"><a href="#questions"><i class="material-icons">question_answer</i> Questions</a> </li>
             <li class="tab"><a href="#hashtags" ng-click="clickForTags()"><i class="material-icons">label_outline</i> Hashtags</a> </li>
-            <li class="tab"><a href="#categories" ng-click="clickForCats()"><i class="material-icons">toc</i> Categories</a> </li>
         </ul>
     </div>
     <div id="questions" class="z-depth-1">
@@ -28,9 +27,5 @@
             <li ng-repeat="tag in tags | filter:tagSearch" class="collection-item yolo"><a href="#" ng-click="fetchQuestionsFromTag(tag._id)">#{{tag.name}}</a> <span style="color: #B5B4B4;">({{tag.questionsTagged.length}})</span><i class="material-icons secondary-content">#</i></li>
         </ul>
     </div>
-    <div class="z-depth-1" id="categories" style="margin-top: 9px">
-        <ul class="collection">
-            <li ng-repeat="cat in cats" class="collection-item yolo"><a href="#" ng-click="fetchQuestionsFromCat(cat._id)">{{cat.name}}</a> <span style="color: #B5B4B4;">({{cat.questions.length}})</span><i class="material-icons secondary-content">toc</i></li>
-        </ul>
-    </div>
+
 </div>

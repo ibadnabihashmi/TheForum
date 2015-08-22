@@ -14,6 +14,11 @@ angular.module('the-forum').factory('postService', function($http){
             return $http.post('/poll/comment', data).then(function(res){
                 return res;
             });
+        },
+        rate: function(data){
+            return $http.post('/question/rate',data).then(function(res){
+                return res;
+            });
         }
     }
 });

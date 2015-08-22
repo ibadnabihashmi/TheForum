@@ -2,8 +2,11 @@
     <div class="z-depth-1">
         <div class="row" style="padding: 40px">
             <div class="col m12 text-center">
-                <p><a href="/account/{{poll.userID.username}}">@{{poll.userID.username}}</a></p>
-                <h1>{{poll.question}}</h1>
+                <div class="row">
+                    <div class="col m1"><img src="{{poll.userID.profile.picture}}" alt="" class="circle responsive-img z-depth-1"></div>
+                    <div class="col m10"><p><a href="/account/{{poll.userID.username}}">@{{poll.userID.username}}</a></p></div>
+                </div>
+                <h3>{{poll.question}}</h3>
             </div>
 
         </div>
@@ -24,10 +27,16 @@
     </div>
     <div class="z-depth-1" style="padding: 40px">
         <div class="row">
-            <div class="col m12">
-                <div ng-repeat="comment in comments" ng-class="comment.side==1?'right-align':'left-align'">
-                    <p><a href="/account/{{comment.byUser.username}}">@{{comment.byUser.username}}</a></p>
-                    <h4>{{comment.text}}</h4>
+            <div ng-repeat="comment in comments" class="col m12 comment z-depth-1" ng-class="comment.side==1?'right-align':'left-align'">
+                <div class="col m12">
+                    <div class="row commentHead">
+                        <div class="col m12"><p><img src="{{comment.byUser.profile.picture}}" alt="" class="circle responsive-img z-depth-1 commentAvatar"><a href="/account/{{comment.byUser.username}}" style="margin-left: 8px;">@{{comment.byUser.username}}</a></p></div>
+                    </div>
+                    <div class="row">
+                        <h6>{{comment.text}}</h6>
+                        <div ng-if="canComment(comment)"><a ng-click="upVote(comment,$index)" href="#" class="voteUp"><i class="material-icons">call_made</i><span>{{comment.likes.length}}</span></a><a href="#" ng-click="downVote(comment,$index)" class="voteDown"><i class="material-icons">call_received</i><span>{{comment.dislikes.length}}</span></a></div>
+                        <div ng-if="!canComment(comment)"><a href="#" class="disableVote"><i class="material-icons">call_made</i><span>{{comment.likes.length}}</span></a><a href="#" class="disableVote"><i class="material-icons">call_received</i><span>{{comment.dislikes.length}}</span></a></div>
+                    </div>
                 </div>
             </div>
         </div>

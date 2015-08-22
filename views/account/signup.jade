@@ -10,9 +10,16 @@ block content
                     .row
                         .input-field.col.s12.l6
                             i.mdi-content-mail.prefix
+                            input.validate(type='text', name='fname', id='fname',autofocus=true)
+                            label(for='fname') First name
+                        .input-field.col.s12.l6
+                            i.mdi-content-mail.prefix
+                            input.validate(type='text', name='lname', id='lname',autofocus=true)
+                            label(for='lname') Last name
+                        .input-field.col.s12.l6
+                            i.mdi-content-mail.prefix
                             input.validate(type='text', name='username', id='username',autofocus=true)
                             label(for='username') Username
-
                         .input-field.col.s12.l6
                             i.mdi-content-mail.prefix
                             input.validate(type='email', name='email', id='email',autofocus=true)

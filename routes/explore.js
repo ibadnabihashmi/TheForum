@@ -32,7 +32,7 @@ router.get('/getAllQues',function(req,res,next){
 router.get('/getComments',function(req,res){
     Comment.
         find({questionId:req.query.qid}).
-        populate('byUser', 'username email').
+        populate('byUser', 'username email profile').
         sort({_id:1}).
         exec(function(err,comments){
             if(!err){
@@ -44,14 +44,14 @@ router.get('/getComments',function(req,res){
 });
 
 router.get('/question',function(req,res,next){
-    Question.findById(req.query.qid).populate('userID', 'username email').exec(function(err,response){
+    Question.findById(req.query.qid).populate('userID', 'username email profile').exec(function(err,response){
         res.send(200,{
             question:response
         });
     });
 });
 router.get('/poll/:pid',function(req,res,next){
-    Question.findById(req.params.pid).populate('userID', 'username email').exec(function(err,response){
+    Question.findById(req.params.pid).populate('userID', 'username email profile').exec(function(err,response){
         res.send(200,{
             poll:response
         });
@@ -60,7 +60,7 @@ router.get('/poll/:pid',function(req,res,next){
 router.get('/getPollComments/:pid',function(req,res){
     Comment.
         find({questionId:req.params.pid}).
-        populate('byUser', 'username email').
+        populate('byUser', 'username email profile').
         sort({_id:1}).
         exec(function(err,comments){
             if(!err){

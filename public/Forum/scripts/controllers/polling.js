@@ -3,19 +3,23 @@ angular.module('the-forum').controller('PollingController', function($scope, $ht
     sessionService.getSessionInfo().then(function (response) {
         $scope.user = response;
     });
-    fetchService.fetchPoll().then(function (response) {
-        $scope.poll = response;
-        for(var i=0;i<$scope.poll.options.length;i++){
-            if($scope.poll.options[i].votes.indexOf($scope.user._id) != -1){
-                $scope.user.side = i;
-                $scope.showPollOpt = false;
-                break;
+    var fetchPoll = function(){
+        fetchService.fetchPoll().then(function (response) {
+            $scope.poll = response;
+            for(var i=0;i<$scope.poll.options.length;i++){
+                if($scope.poll.options[i].votes.indexOf($scope.user._id) != -1){
+                    $scope.user.side = i;
+                    $scope.showPollOpt = false;
+                    break;
+                }
             }
-        }
-    });
-    fetchService.fetchAllPollComments().then(function(res){
-        $scope.comments = res.data.comments;
-    });
+        });
+    };
+    var fetchPollComments = function(){
+        fetchService.fetchAllPollComments().then(function(res){
+            $scope.comments = res.data.comments;
+        });
+    };
     $scope.vote = function(id){
         if($scope.showPollOpt){
             $scope.showPollOpt = false;
@@ -24,6 +28,7 @@ angular.module('the-forum').controller('PollingController', function($scope, $ht
                 pollOptId:id
             }).then(function(res){
                 $scope.user.side = id;
+                fetchPoll();
             });
         }
     };
@@ -38,4 +43,27 @@ angular.module('the-forum').controller('PollingController', function($scope, $ht
             $scope.comments = res.data.comments;
         });
     };
+    $scope.upVote = function(comment,index){
+        $scope.comments[index].likes.length++;
+        $http.post('/question/thumbsUp',{comment:comment}).then(function(res){
+            fetchPollComments();
+        });
+    };
+
+    $scope.downVote = function(comment,index){
+        $scope.comments[index].dislikes.length++;
+        $http.post('/question/thumbsDown',{comment:comment}).then(function(res){
+            fetchPollComments();
+        });
+    };
+
+    $scope.canComment = function(comment){
+        if((comment.likes.indexOf($scope.user._id) != -1) || (comment.dislikes.indexOf($scope.user._id) != -1)){
+            return false;
+        }else{
+            return true;
+        }
+    };
+    fetchPoll();
+    fetchPollComments();
 });

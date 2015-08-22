@@ -29,6 +29,9 @@ router.post('/comment',function(req,res,next){
         byUser:req.user.id,
         questionId:req.body.qid
     });
+    if(req.body.code){
+        comment.code = req.body.code;
+    }
     comment.save(function(err){
         if(!err){
             Comment.find({questionId:req.body.qid}).populate('byUser').sort({_id:1}).exec(function(err,comments){
@@ -41,7 +44,18 @@ router.post('/comment',function(req,res,next){
         }
     });
 });
-
+router.post('/:username/getUserPosts',function(req,res){
+    console.log(req.body);
+    Question
+        .find({userID:req.body.userId})
+        .sort({_id:-1})
+        .exec(function(error, posts){
+            console.log(posts);
+            res.send(200,{
+                posts:posts
+            });
+        });
+});
 router.get('/getNotifications',function(req,res,next){
     User.findById(req.user.id, 'notifications -_id')
         .populate('notifications.qID', 'question')
@@ -118,11 +132,18 @@ router.post('/:username/ask',function(req,res,next){
     var question = new Question({
         question : req.body.text,
         tags : req.body.tags.split(','),
-        category : req.body.category,
         date : Date.now(),
         userID : req.user.id,
-        type:'question'
+        type: 'question'
     });
+    if(req.body.code){
+        question.code = req.body.code;
+    }
+    if(req.body.to){
+        for(var i=0;i<req.body.to.length;i++){
+            question.to.push(req.body.to[i]);
+        }
+    }
     question.save(function(err){
         if(!err){
             var saveTags = function(){
@@ -210,7 +231,6 @@ router.get('/:username/getQues',function(req,res,next){
 
 router.get('/:username/getUser',function(req,res,next){
     User.findOne({username: req.params.username})
-        .select('username email following followers')
         .populate('following followers', 'username')
         .exec(function(error, info){
             res.send(200,{

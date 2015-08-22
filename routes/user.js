@@ -84,19 +84,21 @@ exports.postSignup = function(req, res ,next) {
     password: req.body.password,
     username: req.body.username
   });
-
+    user.profile.name = req.body.fname+" "+req.body.lname;
+    user.profile.picture = user.gravatar(200);
   User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');
+    }else{
+        user.save(function(err) {
+            if (err) return next(err);
+            req.logIn(user, function(err) {
+                if (err) return next(err);
+                res.redirect('/account/'+user.username);
+            });
+        });
     }
-    user.save(function(err) {
-      if (err) return next(err);
-      req.logIn(user, function(err) {
-          if (err) return next(err);
-          res.redirect('/account/'+user.username);
-      });
-    });
   });
 };
 
@@ -352,4 +354,32 @@ exports.postForgot = function(req, res, next) {
     if (err) return next(err);
     res.redirect('/forgot');
   });
+};
+exports.getSetUsername = function(req,res){
+    res.render('setUsername',{
+        title:' - set @username'
+    });
+};
+exports.postSetUsername = function(req,res){
+    User
+        .findOne({
+            username:req.body.username
+        })
+        .exec(function(err,user){
+            if(user){
+                req.flash('errors',{msg:"username already occupied"});
+                res.redirect('/setUsername');
+            }else{
+                User
+                    .findById(req.user.id)
+                    .exec(function(err,usr){
+                        usr.username = req.body.username;
+                        usr.save(function(err){
+                            if(!err){
+                                res.redirect('/account/'+req.body.username);
+                            }
+                        });
+                    })
+            }
+        });
 };

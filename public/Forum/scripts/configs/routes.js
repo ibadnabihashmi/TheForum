@@ -40,6 +40,18 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
         })
         .when('/user/profile', {
             templateUrl: '/Forum/views/account/profileCard.html'
+        })
+        .when('/logout',{
+            template: '',
+            controller: function() {
+                location.reload('/logout');
+            }
+        })
+        .when('/',{
+            template: '',
+            controller: function() {
+                location.reload('/');
+            }
         });
 
     $locationProvider.html5Mode({
