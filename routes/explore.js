@@ -70,6 +70,18 @@ router.get('/getPollComments/:pid',function(req,res){
             }
         });
 });
+router.post('/getMatchedUsers',function(req,res){
+    User.
+        find({"username":{ "$regex": req.body.match, "$options": "i" }}).
+        sort({_id:-1}).
+        exec(function(err,user){
+            if(user){
+                return res.send(200,{
+                    users:user
+                });
+            }
+        });
+});
 router.get('/getAllTags',function(req,res){
     Tag
         .find()

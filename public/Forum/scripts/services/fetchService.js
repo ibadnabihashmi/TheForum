@@ -64,6 +64,11 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
             return $http.get('/explore/getQuesFromCat?id='+id).then(function(ques){
                 return ques.data.questions;
             });
+        },
+        matchingUser: function(data){
+            return $http.post('/explore/getMatchedUsers',data).then(function(res){
+                return res;
+            });
         }
         /*      getActivity: function(){
          return $http.get('/account/getActivity').then(function(res){

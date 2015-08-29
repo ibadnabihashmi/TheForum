@@ -99,7 +99,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-//app.get('/', homeController.index);
+app.get('/', function(req,res){
+    res.redirect('/login');
+});
 app.get('/user',function(req,res){
     res.send(200,{
         user:req.user

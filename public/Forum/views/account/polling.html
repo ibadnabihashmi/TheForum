@@ -49,5 +49,16 @@
                 <a type="button" ng-click="pollComment()" class="btn waves-effect waves-light">Post</a>
             </div>
         </div>
+        <div ng-show="!user" class="row">
+            <div class="col m12 text-center center-align">
+                <a href="/login" class="waves-effect waves-ripple" style="width: 100%; color: #4C3692;">
+                    <div>
+                        <h2>
+                            let me comment or vote >:(
+                        </h2>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

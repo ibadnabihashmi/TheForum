@@ -1,17 +1,23 @@
 nav{
-    background-color: rgb(41, 133, 196);
+    background-color: rgb(76, 54, 146);
+}
+nav ul a {
+    color: white;
+}
+.purple{
+    background-color: #2E205B!important;
 }
 .dropdown-content li>a, .dropdown-content li>span {
     font-size: 1.2rem;
-    color: rgb(41, 133, 196);
+    color: rgb(76, 54, 146);
     display: block;
     padding: 1rem 1rem;
 }
 .btn{
-    background-color: rgb(41, 133, 196);
+    background-color: rgb(76, 54, 146);
 }
 .btn:hover{
-    background-color: rgb(46, 163, 236);
+    background-color: rgb(114, 77, 211);
 }
 .z-depth-1{
     background-color: white;
@@ -122,19 +128,19 @@ ul.rating {
     margin-bottom: -13px;
 }
 .btn-follow{
-    color: rgb(41, 133, 196);
+    color: rgb(76, 54, 146);
     background-color: white;
     border: 2px solid;
     border-radius: 8px;
 }
 .btn-follow:focus{
-    color: rgb(41, 133, 196);
+    color: rgb(76, 54, 146);
     background-color: white;
     border: 2px solid;
     border-radius: 8px;
 }
 .btn-follow:hover{
-    color: rgb(46, 158, 232);
+    color: rgb(114, 77, 211);
     background-color: white;
     border: 2px solid;
     border-radius: 8px;
@@ -153,4 +159,10 @@ ul.rating {
     background-color: #6ccd30;
     color: white;
     border-radius: 8px;
+}
+.searchResults{
+    position: fixed;
+    z-index: 1002;
+    margin-left: 8px;
+    width: 20%;
 }

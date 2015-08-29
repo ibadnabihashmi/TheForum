@@ -47,6 +47,18 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
                 location.reload('/logout');
             }
         })
+        .when('/login',{
+            template: '',
+            controller: function() {
+                location.reload('/login');
+            }
+        })
+        .when('/signup',{
+            template: '',
+            controller: function() {
+                location.reload('/signup');
+            }
+        })
         .when('/',{
             template: '',
             controller: function() {
