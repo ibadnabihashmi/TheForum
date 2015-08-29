@@ -1,4 +1,4 @@
-angular.module('the-forum').controller('AskCtrl',['$rootScope','$scope','$http',function($rootScope,$scope,$http){
+angular.module('the-forum').controller('AskCtrl',['$scope','$http',function($scope,$http){
 
     var getAllQues = function(){
         $http.get('/account/getQues')
