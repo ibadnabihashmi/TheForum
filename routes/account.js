@@ -45,12 +45,11 @@ router.post('/comment',function(req,res,next){
     });
 });
 router.post('/:username/getUserPosts',function(req,res){
-    console.log(req.body);
     Question
         .find({userID:req.body.userId})
         .sort({_id:-1})
+        .populate('to')
         .exec(function(error, posts){
-            console.log(posts);
             res.send(200,{
                 posts:posts
             });

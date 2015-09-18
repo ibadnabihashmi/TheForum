@@ -44,7 +44,7 @@ router.get('/getComments',function(req,res){
 });
 
 router.get('/question',function(req,res,next){
-    Question.findById(req.query.qid).populate('userID', 'username email profile').exec(function(err,response){
+    Question.findById(req.query.qid).populate('userID username email profile to').exec(function(err,response){
         res.send(200,{
             question:response
         });

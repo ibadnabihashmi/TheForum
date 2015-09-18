@@ -166,3 +166,72 @@ ul.rating {
     margin-left: 8px;
     width: 20%;
 }
+.btn-100{
+    width: 100%;
+}
+.profile-head{
+    padding: 20px 52px;
+}
+.user-avatar{
+    margin-top: 20px;
+}
+.usr-ct-box{
+    padding: 20px 52px; margin-top: 20px
+}
+.quebLogo{
+    width: 160px; margin-left: 30px;
+}
+.to{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+@media only screen and (max-width: 400px) {
+    .profile-head{
+        padding: 13px 25px;
+    }
+    .user-avatar{
+        margin-top: 20px;
+        width: 87px;
+    }
+    .user-name{
+        width: 176px;
+    }
+    .userName{
+        font-size: 14px;
+        margin-top: -15px;
+        font-weight: 400;
+    }
+    .userFullName{
+        font-size: 25px;
+        font-weight: 300;
+    }
+    .usr-ct-box{
+        padding: 5px 22px;
+        margin-top: 20px;
+    }
+    .commentHead{
+        width: 100%;
+    }
+    .usr-ct-ava{
+        width: 60.3px;
+    }
+    .usr-ct-head{
+        margin-left: -14px;
+        margin-top: -10px;
+    }
+    .usr-ct-txt{
+        font-size: 24px;
+        font-weight: 300;
+    }
+    .comment{
+        width: 100%;
+    }
+    .usr-ct-hd-cn{
+        width: 100%;
+    }
+    .quebLogo{
+        width: 110px;
+        margin-left: 30px;
+        margin-top: 5px;
+    }
+}

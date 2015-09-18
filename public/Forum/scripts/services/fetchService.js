@@ -15,6 +15,11 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
                 return res.data.question;
             });
         },
+        fetchTaggedQuestions: function(){
+            return $http.get('/tags/fetchTaggedQues/'+$routeParams.tag).then(function(res){
+                return res;
+            });
+        },
         fetchPoll: function(){
             return $http.get('/explore/poll/'+$routeParams.pid).then(function(res){
                 return res.data.poll;

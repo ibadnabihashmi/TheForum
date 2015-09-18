@@ -18,7 +18,7 @@
                         <div>
                             <div>
                                 <div>
-                                    <p><a href="/account/{{Question.userID.username}}">@{{Question.userID.username}}</a></p>
+                                    <p><a href="/account/{{Question.userID.username}}">@{{Question.userID.username}}</a><span ng-if="Question.to.length" class="to">to</span><a ng-repeat="to in Question.to" href="/account/{{to.username}}">@{{to.username}}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                     <div>
                         <div>
                             <div>
-                                <h3>{{Question.question}}</h3>
+                                <h3 ng-bind-html="getTheQuestion()"></h3>
                             </div>
                         </div>
                     </div>

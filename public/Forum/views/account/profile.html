@@ -1,15 +1,15 @@
 <div>
-    <div class="z-depth-1" style="padding: 20px 52px;">
+    <div class="z-depth-1 profile-head">
         <div class="row">
-            <div class="col m2" style="margin-top: 20px;">
+            <div class="col m2 user-avatar">
                 <div class="">
                     <img src="{{userInfo.profile.picture}}" alt="" class="circle responsive-img z-depth-2">
                 </div>
             </div>
-            <div class="col m7">
-                <span><h3>{{userInfo.profile.name}}</h3></span>
+            <div class="col m7 user-name">
+                <span><h3 class="userFullName">{{userInfo.profile.name}}</h3></span>
                 <span>
-                    <h5>@{{userInfo.username}}</h5>
+                    <h5 class="userName">@{{userInfo.username}}</h5>
                 </span>
                 <button ng-show="otherUser" ng-click="onFollow(follow)" class="btn btn-follow waves-effect " >{{follow}}</button>
                 <button ng-show="otherUser" class="btn btn-ask waves-effect " href='#askModal' modal>ask me</button>
@@ -30,20 +30,20 @@
         </div>
 
     </div>
-    <div class="z-depth-1" style="padding: 20px 52px; margin-top: 20px">
+    <div class="z-depth-1 usr-ct-box">
         <div class="row">
             <div ng-repeat="post in userPosts" class="col m12 comment">
-                <div class="col m12">
+                <div class="col m12 usr-ct-hd-cn">
                     <div class="row commentHead">
-                        <div class="col m1"><img src="{{userInfo.profile.picture}}" alt="" class="circle responsive-img z-depth-1"></div>
-                        <div class="col m11"><p><a href="/account/{{userInfo.username}}">@{{userInfo.username}}</a></p></div>
+                        <div class="col m1 usr-ct-ava"><img src="{{userInfo.profile.picture}}" alt="" class="circle responsive-img z-depth-1"></div>
+                        <div class="col m11 usr-ct-head"><p><a href="/account/{{userInfo.username}}">@{{userInfo.username}}</a><span ng-if="post.to.length" class="to">to</span><a ng-repeat="to in post.to" href="/account/{{to.username}}">@{{to.username}}</a></p></div>
                     </div>
                     <div class="row">
                         <div class="collection-item" ng-repeat="q in allQuestions" ng-if="q.type == 'poll'">
                             <li><a href="/explore/pollPage/{{post._id}}">{{q.question}}</a><i class="material-icons secondary-content">thumbs_up_down</i></li>
                         </div>
-                        <a ng-if="post.type == 'poll'" href="/explore/pollPage/{{post._id}}"><h3>{{post.question}}</h3></a>
-                        <a ng-if="post.type == 'question'" href="/explore/questionPage/{{post._id}}"><h3>{{post.question}}</h3></a>
+                        <a ng-if="post.type == 'poll'" href="/explore/pollPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
+                        <a ng-if="post.type == 'question'" href="/explore/questionPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
                     </div>
                 </div>
             </div>

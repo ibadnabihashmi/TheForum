@@ -31,6 +31,7 @@ var account = require('./routes/account');
 var explore = require('./routes/explore');
 var question = require('./routes/question');
 var poll = require('./routes/poll');
+var tags = require('./routes/tags');
 
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -131,6 +132,7 @@ app.get('/account/unlink/:provider', passportConf.isAuthenticated, userControlle
 app.use('/explore', explore);
 app.use('/question', question);
 app.use('/poll', poll);
+app.use('/tags', tags);
 app.get('/setUsername',userController.getSetUsername);
 app.post('/setUsername',userController.postSetUsername);
 

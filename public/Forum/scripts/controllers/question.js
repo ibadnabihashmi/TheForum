@@ -1,5 +1,5 @@
 (function(){
-    angular.module('the-forum').controller('QstnCtrl',function($scope, $http, fetchService, sessionService, commentService, postService, $routeParams){
+    angular.module('the-forum').controller('QstnCtrl',function($scope, $http,$sce, fetchService, sessionService, commentService, postService, $routeParams){
         $scope.hideFiveStar = false;
         $scope.rating = 0;
 
@@ -8,6 +8,15 @@
         });
         fetchService.fetchQuestion().then(function (response) {
             $scope.Question=response;
+            var q = $scope.Question.question;
+            var matchTags = q.match(/(^#|[^&]#)([a-z0-9]+)/gi)
+            matchTags.forEach(function(tag){
+                q = q.replace(tag.trim(),'<a href="/tags/showTags/'+tag.slice(2,tag.length)+'">'+tag.trim()+'</a>');
+            });
+            $scope.Question.question = q;
+            $scope.getTheQuestion= function(){
+                return $sce.trustAsHtml($scope.Question.question);
+            };
             $scope.ratings = [{
                 current: $scope.Question.rating.average,
                 max: 5

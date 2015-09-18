@@ -41,6 +41,10 @@ angular.module('the-forum').config(function ($routeProvider, $locationProvider) 
         .when('/user/profile', {
             templateUrl: '/Forum/views/account/profileCard.html'
         })
+        .when('/tags/showTags/:tag', {
+            templateUrl: '/Forum/views/account/taggedQues.html',
+            controller: 'TaggedController'
+        })
         .when('/logout',{
             template: '',
             controller: function() {
