@@ -21,8 +21,10 @@
                 current: $scope.Question.rating.average,
                 max: 5
             }];
-            if($scope.Question.rating.ratedBy.indexOf($scope.user._id) != -1){
-                $scope.hideFiveStar = true;
+            if($scope.user){
+                if($scope.Question.rating.ratedBy.indexOf($scope.user._id) != -1){
+                    $scope.hideFiveStar = true;
+                }
             }
         });
 

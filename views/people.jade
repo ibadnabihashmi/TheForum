@@ -1,0 +1,47 @@
+doctype html
+html(lang='en')
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no')
+        title QUEB - #{post.title}
+        // CSS
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        link(href='materialize/css/materialize.css', type='text/css', rel='stylesheet', media='screen,projection')
+        link(rel="stylesheet" ,href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
+        link(href='css/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+        link(href='Forum/styles/style.css', type='text/css', rel='stylesheet')
+        style.
+            html{
+                background-color: #4C3692;
+            }
+    body
+        .parent-cont
+            .row
+                .col.m12.center
+                    img.center-align(src='img/queb.png', style='width: 200px; margin-top: 10px;')
+                    p(style='margin-top: -15px; color: #BFBFBF;') coming soon...
+            .container
+                .row
+                    .col.m12.center-align(style='color: white')
+                        h3 #{post.title}
+                .row
+                    .col.m12.center
+                        img.people-img.z-depth-2.responsive-img(src=post.imgpath?'http://localhost:3000/uploads/crap/'+post.imgpath:post.imglink, width='700px')
+                -if(post.counterText){
+                .row
+                    .col.m12.center.center-align
+                        h4(style='font-weight:200')
+                            a.btn.btn-large.waves-effect.waves-light.counter(style='padding: 26px 63px; height: 115px;',id='#{post._id}') #{post.counterText} ( #{post.counter} )
+                -}
+                .row
+                    .col.m12.center-align(style='color: white')
+                        h4(style='font-weight: 200') #{post.text}
+            .row
+                .col.m12.right.right-aign
+                        a.btn.btn-facebook.waves-effect.waves-light(href='https://www.facebook.com/queb.co',target='_blank')
+                            i.fa.fa-facebook
+                        a.btn.btn-twitter.waves-effect.waves-light(href='https://twitter.com/queb_co',target='_blank',style='margin-left: 10px;')
+                            i.fa.fa-twitter
+        script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+        script(src='materialize/js/materialize.js')
+        script(src='js/poll.js')

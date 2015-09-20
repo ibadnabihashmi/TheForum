@@ -20,6 +20,16 @@ angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, se
             });
         });
     };
+    var fetchAskedPosts = function(){
+        sessionService.getUserInfo().then(function (response) {
+            $scope.userInfo = response;
+            fetchService.fetchAskedPosts({
+                userId:$scope.userInfo._id
+            }).then(function(res){
+                $scope.asked = res.data.posts;
+            });
+        });
+    };
     function forEach(array, callback) {
         for(var i=0;i<array.length;i++){
             if(callback(array[i]._id)) break;
@@ -113,6 +123,7 @@ angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, se
             });
     };
     fetchUserPosts();
+    fetchAskedPosts();
     /*        fetchService.getActivity().then(function (response) {
      $scope.activity=response;
      });*/

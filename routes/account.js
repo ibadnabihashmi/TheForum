@@ -55,6 +55,17 @@ router.post('/:username/getUserPosts',function(req,res){
             });
         });
 });
+router.post('/:username/getAskedPosts',function(req,res){
+    Question
+        .find({to:req.body.userId})
+        .sort({_id:-1})
+        .populate('to userID')
+        .exec(function(error, posts){
+            res.send(200,{
+                posts:posts
+            });
+        });
+});
 router.get('/getNotifications',function(req,res,next){
     User.findById(req.user.id, 'notifications -_id')
         .populate('notifications.qID', 'question')

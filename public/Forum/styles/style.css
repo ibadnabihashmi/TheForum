@@ -43,6 +43,18 @@ body{
 .btn-linkedin.hover{
     background-color: #1A85BC;
 }
+.btn-twitter{
+    background-color: #55acee;
+}
+.btn-twitter:hover{
+    background-color: #5bb7ff;;
+}
+.parent-cont{
+    background-color: #4C3692;
+}
+.people-img{
+    border: 5px solid #B1B1B1;
+}
 .addColor{
     color: red;
 }
@@ -184,6 +196,19 @@ ul.rating {
 .to{
     margin-left: 10px;
     margin-right: 10px;
+}
+.tabs .tab a {
+    color: #4C3692;
+}
+.tabs .tab a:hover {
+    color: #7c48d5
+}
+.tabs .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #4C3692;
+    will-change: left, right;
 }
 @media only screen and (max-width: 400px) {
     .profile-head{

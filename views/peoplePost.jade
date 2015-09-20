@@ -1,0 +1,53 @@
+doctype html
+html(lang='en')
+    head
+        meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no')
+        title QUEB - Blog post
+        // CSS
+        link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+        link(href='materialize/css/materialize.css', type='text/css', rel='stylesheet', media='screen,projection')
+        link(href='css/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+        link(href='Forum/styles/style.css', type='text/css', rel='stylesheet')
+        style.
+            html{
+                background-color: #4C3692;
+            }
+    body
+        .parent-cont
+            .row
+                .col.m12.center
+                    img.center-align(src='img/queb.png', style='width: 200px; margin-top: 10px;')
+            .container
+                .row
+                    form.col.s12(action='/blogpost', method='POST', enctype='multipart/form-data')
+                        .row
+                            .input-field.col.s12
+                                input#title(type='text', name='title')
+                                label(for='title') title
+                        .row
+                            .input-field.col.s12
+                                input#imglink(type='text', name='imglink')
+                                label(for='imglink') paste image link
+                        .row
+                            .file-field.input-field.col.s12
+                                .btn
+                                    span File
+                                    input(type='file', name='image')
+                                .file-path-wrapper
+                                    input.file-path.validate(type='text')
+                        .row
+                            .input-field.col.s12
+                                textarea#text.materialize-textarea(name='text')
+                                label(for='text') text
+                        .row
+                            .input-field.col.s12
+                                input#counter(type='text', name='counter')
+                                label(for='counter') counter text
+                        div
+                            button.btn.waves-effect.waves-light(type='submit', name='action')
+                                | Submit
+                                i.material-icons.right send
+        // Scripts
+        script(src='https://code.jquery.com/jquery-2.1.1.min.js')
+        script(src='materialize/js/materialize.js')

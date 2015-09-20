@@ -40,6 +40,11 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
                 return res;
             });
         },
+        fetchAskedPosts: function(data){
+            return $http.post('/account/'+$routeParams.username+'/getAskedPosts',data).then(function(res){
+                return res;
+            });
+        },
         getAllQuestions: function(){
             return $http.get('/explore/getAllQues').then(function(res){
                 return res.data.questions;

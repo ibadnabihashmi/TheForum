@@ -2,13 +2,6 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper ">
-                <ul id='dropdown-menu' class='dropdown-content'>
-                    <li ng-show="user"><a href="/logout">Logout</a></li>
-                    <li ng-show="user"><a href="/explore">Explore</a></li>
-                    <li ng-show="user"><a href="/account/{{user.username}}">Profile</a></li>
-                    <li ng-show="!user"><a href="/login">Login</a></li>
-                    <li ng-show="!user"><a href="/signup">Create Account</a></li>
-                </ul>
                 <ul ng-show="user" class="left hide-on-med-and-down">
                     <li>
                         <form>
@@ -21,9 +14,13 @@
                 </ul>
                 <ul class="right hide-on-med-and-down">
 
-                    <li ng-show="user"><a class="dropdown-button" href="#!" data-activates="bored" data-constrainwidth="false" dropdown>i'm bored</a></li>
-                    <li ng-show="user"><a href="/account/{{user.username}}/notification">Notifications</a></li>
-                    <li><a class="dropdown-button" data-constrainwidth="false" href="#!" data-activates="dropdown-menu" dropdown><i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="i'm qurious"><a class="dropdown-button" href="#!" data-activates="bored" data-constrainwidth="false" dropdown><i class="material-icons">help_outline</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="notifications"><a href="/account/{{user.username}}/notification"><i class="material-icons">add_alert</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="explore"><a href="/explore"><i class="material-icons">question_answer</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="profile"><a href="/account/{{user.username}}"><i class="material-icons">account_circle</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="logout"><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+                    <li ng-show="!user"><a href="/login"><i class="material-icons">exit_to_app</i></a></li>
+                    <li ng-show="!user"><a href="/signup"><i class="material-icons">person_pin</i></a></a></li>
                 </ul>
 
                 <ul id="nav-mobile" class="side-nav">

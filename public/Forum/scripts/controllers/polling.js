@@ -16,10 +16,12 @@ angular.module('the-forum').controller('PollingController', function($scope, $ht
                 return $sce.trustAsHtml($scope.poll.question);
             };
             for(var i=0;i<$scope.poll.options.length;i++){
-                if($scope.poll.options[i].votes.indexOf($scope.user._id) != -1){
-                    $scope.user.side = i;
-                    $scope.showPollOpt = false;
-                    break;
+                if($scope.user){
+                    if($scope.poll.options[i].votes.indexOf($scope.user._id) != -1){
+                        $scope.user.side = i;
+                        $scope.showPollOpt = false;
+                        break;
+                    }
                 }
             }
         });
@@ -67,10 +69,12 @@ angular.module('the-forum').controller('PollingController', function($scope, $ht
     };
 
     $scope.canComment = function(comment){
-        if((comment.likes.indexOf($scope.user._id) != -1) || (comment.dislikes.indexOf($scope.user._id) != -1)){
-            return false;
-        }else{
-            return true;
+        if($scope.user){
+            if((comment.likes.indexOf($scope.user._id) != -1) || (comment.dislikes.indexOf($scope.user._id) != -1)){
+                return false;
+            }else{
+                return true;
+            }
         }
     };
     fetchPoll();
