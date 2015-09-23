@@ -1,4 +1,4 @@
-angular.module('the-forum').factory('sessionService', function($http, $routeParams){
+angular.module('the-forum').factory('sessionService', function($http, $routeParams, $route){
     return{
         getSessionInfo: function(){
             return $http.get('/user').then(function(res){
@@ -6,7 +6,7 @@ angular.module('the-forum').factory('sessionService', function($http, $routePara
             });
         },
         getUserInfo: function(){
-            return $http.get('/account/'+$routeParams.username+'/getUser').then(function(res){
+            return $http.get('/account/'+$route.current.params.username+'/getUser').then(function(res){
                 return res.data.userInfo;
             });
         },

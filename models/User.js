@@ -7,11 +7,11 @@ var userSchema = new mongoose.Schema({
     email: { type: String, unique: true, lowercase: true },
     password: String,
     notifications: [{
-        qID: {type : mongoose.Schema.Types.ObjectId, ref: 'Question'},
+        associatedId: { type : mongoose.Schema.Types.ObjectId },
         commentedBy: String,
+        type: String,
         date: {type: Date, default: Date.now}
     }],
-
     followers:{
         type : [mongoose.Schema.Types.ObjectId],
         ref : 'User'

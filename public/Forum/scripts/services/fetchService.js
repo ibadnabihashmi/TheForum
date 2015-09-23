@@ -1,4 +1,4 @@
-angular.module('the-forum').factory('fetchService', function($http, $routeParams){
+angular.module('the-forum').factory('fetchService', function($http, $routeParams, $route){
     return{
         getUserQuestions: function(){
             return $http.get('/account/'+$routeParams.username+'/getQues').then(function(res){
@@ -11,7 +11,7 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
             });
         },
         fetchQuestion: function(){
-            return $http.get('/explore/question?qid='+$routeParams.qid).then(function(res){
+            return $http.get('/explore/question?qid='+$route.current.params.qid).then(function(res){
                 return res.data.question;
             });
         },
@@ -26,7 +26,7 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
             });
         },
         fetchComments: function(){
-            return $http.get('/explore/getComments?qid='+$routeParams.qid).then(function(res){
+            return $http.get('/explore/getComments?qid='+$route.current.params.qid).then(function(res){
                 return res.data.comments;
             });
         },

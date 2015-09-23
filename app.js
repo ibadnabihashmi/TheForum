@@ -101,46 +101,46 @@ app.use('/people/:title',express.static(path.join(__dirname, 'public'), { maxAge
 /**
  * Primary app routes.
  */
-//app.get('/', function(req,res){
-//    res.redirect('/login');
-//});
-//app.get('/user',function(req,res){
-//    res.send(200,{
-//        user:req.user
-//    });
-//});
-//
-//app.get('/login', userController.getLogin);
-//app.post('/login', userController.postLogin);
-//app.get('/logout', function(req,res){
-//    req.logout();
-//    res.redirect("/");
-//});
-//app.get('/forgot', userController.getForgot);
-//app.post('/forgot', userController.postForgot);
-//app.get('/reset/:token', userController.getReset);
-//app.post('/reset/:token', userController.postReset);
-//app.get('/signup', userController.getSignup);
-//app.post('/signup', userController.postSignup);
-//app.get('/contact', contactController.getContact);
-//app.post('/contact', contactController.postContact);
-//app.use('/account', passportConf.isAuthenticated, account);
-//app.use('/account/:username/ask', passportConf.isAuthenticated, account);
-//app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
-//app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
-//app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
-//app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
-//app.use('/explore', explore);
-//app.use('/question', question);
-//app.use('/poll', poll);
-//app.use('/tags', tags);
+app.get('/', function(req,res){
+    res.redirect('/login');
+});
+app.get('/user',function(req,res){
+    res.send(200,{
+        user:req.user
+    });
+});
+
+app.get('/login', userController.getLogin);
+app.post('/login', userController.postLogin);
+app.get('/logout', function(req,res){
+    req.logout();
+    res.redirect("/");
+});
+app.get('/forgot', userController.getForgot);
+app.post('/forgot', userController.postForgot);
+app.get('/reset/:token', userController.getReset);
+app.post('/reset/:token', userController.postReset);
+app.get('/signup', userController.getSignup);
+app.post('/signup', userController.postSignup);
+app.get('/contact', contactController.getContact);
+app.post('/contact', contactController.postContact);
+app.use('/account', passportConf.isAuthenticated, account);
+app.use('/account/:username/ask', passportConf.isAuthenticated, account);
+app.post('/account/profile', passportConf.isAuthenticated, userController.postUpdateProfile);
+app.post('/account/password', passportConf.isAuthenticated, userController.postUpdatePassword);
+app.post('/account/delete', passportConf.isAuthenticated, userController.postDeleteAccount);
+app.get('/account/unlink/:provider', passportConf.isAuthenticated, userController.getOauthUnlink);
+app.use('/explore', explore);
+app.use('/question', question);
+app.use('/poll', poll);
+app.use('/tags', tags);
 app.post('/blogpost',people.blogpost);
 app.get('/getBlogPosts',people.getBlogPosts);
 app.get('/people/:title/:id',people.getBlog);
 app.post('/counterup',people.counterup);
 app.get('/getcraprealcrap',people.getRealCrap);
-//app.get('/setUsername',userController.getSetUsername);
-//app.post('/setUsername',userController.postSetUsername);
+app.get('/setUsername',userController.getSetUsername);
+app.post('/setUsername',userController.postSetUsername);
 
 /**
  * API examples routes.
