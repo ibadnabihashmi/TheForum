@@ -17,7 +17,6 @@
             <div>
                 <div class="col m1 text-center center-align" style="margin-top: 30px;">
                     <a class="btn-floating btn-small waves-effect waves-light red" ng-click="imFollowing()"  href='#Modal' modal><i class="material-icons">perm_identity</i></a>
-
                 </div>
                 <div class="col m1 text-center center-align" style="margin-top: 30px;">
                     <a class="btn-floating btn-small waves-effect waves-light red" ng-click="myFollowers()" href='#Modal' modal><i class="material-icons">supervisor_account</i></a>
@@ -28,7 +27,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="z-depth-1 usr-ct-box">
@@ -49,8 +47,15 @@
                         <div class="collection-item" ng-repeat="q in allQuestions" ng-if="q.type == 'poll'">
                             <li><a href="/explore/pollPage/{{post._id}}">{{q.question}}</a><i class="material-icons secondary-content">thumbs_up_down</i></li>
                         </div>
-                        <a ng-if="post.type == 'poll'" href="/explore/pollPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
-                        <a ng-if="post.type == 'question'" href="/explore/questionPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
+                        <div ng-if="post.type == 'poll'">
+                            <a href="/explore/pollPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
+                            <delete-directive delete-type="deleteQuestion" delete-id="post._id" owner-id="post.userID"></delete-directive>
+                        </div>
+
+                        <div ng-if="post.type == 'question'" >
+                            <a href="/explore/questionPage/{{post._id}}"><h3 class="usr-ct-txt">{{post.question}}</h3></a>
+                            <delete-directive delete-type="deleteQuestion" delete-id="post._id" owner-id="post.userID"></delete-directive>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +111,7 @@
                     ain't got no followers</div>
                 <div ng-repeat="person in userInfo.followers" class="collection-item avatar">
                     <img src="http://www.cliniquetagmed.com/files/2012/08/gravatar.jpg" alt="" class="circle responsive-img">
-                    <a href="/account/{{person.username}}" class="modal-action modal-close">{{person.username}}</a>
+                      <a href="/account/{{person.username}}" class="modal-action modal-close">{{person.username}}</a>
                     <button ng-if="user.following.indexOf(person._id) != -1" ng-click="unFollowPlease(person._id)" class="btn btn-follow waves-effect secondary-content">Unfollow</button>
                     <button ng-if="user.following.indexOf(person._id) == -1" ng-click="followPlease(person._id)" class="btn btn-follow waves-effect secondary-content">follow</button>
                 </div>

@@ -5,6 +5,8 @@
                 <div class="row">
                     <div class="col m1"><img src="{{poll.userID.profile.picture}}" alt="" class="circle responsive-img z-depth-1"></div>
                     <div class="col m10"><p><a href="/account/{{poll.userID.username}}">@{{poll.userID.username}}</a></p></div>
+                    <delete-directive delete-type="deletePoll"></delete-directive>
+
                 </div>
                 <h3 ng-bind-html="getThePoll()"></h3>
             </div>

@@ -135,7 +135,10 @@ app.use('/explore', explore);
 app.use('/question', question);
 app.use('/poll', poll);
 app.use('/tags', tags);
+<<<<<<< HEAD
 app.use('/update', update);
+=======
+>>>>>>> origin/master
 app.post('/blogpost',people.blogpost);
 app.get('/getBlogPosts',people.getBlogPosts);
 app.get('/people/:title/:id',people.getBlog);

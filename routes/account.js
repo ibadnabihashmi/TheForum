@@ -119,23 +119,16 @@ router.post('/unfollow',function(req, res){
 
 
 router.post('/:username/notify',function(req, res){
-    console.log(req.query.qUser);
-    console.log(req.query.qId);
-    console.log(req.query.postedBy);
-    if(req.query.qUser!=req.user.id){
-        User.findByIdAndUpdate(req.query.qUser, { $addToSet:
-        {notifications: {qID: req.query.qId,  commentedBy: req.query.postedBy}}
+    if(req.query.toUser!=req.user.id){
+        console.log(req.query.toUser);
+        User.findByIdAndUpdate(req.query.toUser, { $addToSet:
+        {notifications: {associatedId: req.query.associatedID,  commentedBy: req.query.commentedBy, type: req.query.type}}
         }).exec(function(e, userInfo){
             res.send(200,{
                 userInfo: userInfo
             });
         });
     }
-    else{
-        //Activity Code here
-        console.log("User posted on their own question");
-    }
-
 });
 
 router.post('/:username/ask',function(req,res,next){

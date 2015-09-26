@@ -66,4 +66,25 @@ router.post('/rate',function(req,res){
             }
         });
 });
+
+
+router.get('/deleteQuestion',function(req,res){
+    Question.find({_id: req.query.qid, userID: req.user.id}).remove().exec(function(error, res){
+        if(!error) {
+            if(res.result.n>0){
+                Comment.find({questionId: req.query.qid}).remove().exec(function(error, res){
+                    if(!error) console.log(res);
+                    else console.log(error);
+                });
+            }
+        }
+    });
+});
+router.get('/deleteComment',function(req,res){
+    Comment.find({_id: req.query.cid, byUser: req.user.id}).remove().exec(function(error, res){
+        if(!error) console.log(res);
+        else console.log(error);
+    });
+});
+
 module.exports = router;

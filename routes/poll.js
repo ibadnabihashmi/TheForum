@@ -18,6 +18,7 @@ function render(title){
 }
 router.get('/',render(' - poll'));
 
+
 router.post('/new',function(req,res){
 
     var poll = new Question({

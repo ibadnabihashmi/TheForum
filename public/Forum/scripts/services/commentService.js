@@ -7,10 +7,16 @@ angular.module('the-forum').factory('commentService', function($http){
         },
         notifyUser: function(notifyData){
             return $http.post('/account/'+notifyData.username+'/notify' +
-                '?qUser='+ notifyData.qUser +
-                '&qId='+ notifyData.qId +
-                '&postedBy='+ notifyData.postedBy).then(function(res){
-                return res.data;
+                '?toUser='+ notifyData.toUser +
+                '&associatedID='+ notifyData.associatedID +
+                '&commentedBy='+ notifyData.commentedBy+
+                '&type='+ notifyData.type).then(function(res){
+                    return res.data;
+                });
+        },
+        commentVote: function(routeSelect, comment){
+            return $http.post('/question/'+routeSelect,{ comment : comment }).then(function(res){
+                return res;
             });
         }
     }

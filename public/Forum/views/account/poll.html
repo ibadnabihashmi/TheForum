@@ -33,6 +33,8 @@
                 <div class="row">
                     <div>
                         <a href="/explore/pollPage/{{poll._id}}"><h3>{{poll.question}}</h3></a>
+                        <delete-directive delete-type="deleteQuestion" delete-id="poll._id"></delete-directive>
+
                     </div>
                 </div>
             </div>
