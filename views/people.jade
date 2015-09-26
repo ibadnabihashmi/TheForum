@@ -24,9 +24,16 @@ html(lang='en')
                 .row
                     .col.m12.center-align(style='color: white')
                         h3 #{post.title}
+                -if(post.imgpath || post.imglink){
                 .row
                     .col.m12.center
                         img.people-img.z-depth-2.responsive-img(src=post.imgpath?'http://localhost:3000/uploads/crap/'+post.imgpath:post.imglink, width='700px')
+                -}
+                -if(post.vidLink){
+                .row
+                    .col.m12.center
+                        div(stye='width:700px') #{post.vidLink}
+                -}
                 -if(post.counterText){
                 .row
                     .col.m12.center.center-align

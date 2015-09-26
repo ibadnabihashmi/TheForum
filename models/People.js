@@ -23,6 +23,9 @@ var peopleSchema = new mongoose.Schema({
     imglink : {
         type : String
     },
+    vidLink : {
+        type : String
+    },
     imgpath : {
         type : String
     },

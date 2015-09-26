@@ -26,7 +26,8 @@ exports.blogpost = function(req,res){
         text : req.body.text,
         imglink : req.body.imglink?req.body.imglink:undefined,
         imgpath : req.files.image?req.files.image.name:undefined,
-        counterText: req.body.counter?req.body.counter:undefined
+        counterText: req.body.counter?req.body.counter:undefined,
+        vidLink: req.body.vidlink?req.body.vidlink:undefined
     });
     post.save(function(err){
         if(!err){
