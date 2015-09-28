@@ -5,7 +5,7 @@
                         <label>
                             <span ng-if="!user.enableAsk">enable ask button</span>
                             <span ng-if="user.enableAsk">ask button enabled</span>
-                            <input type="checkbox" ng-change="toggeleAskButton()" ng-model="user.enableAsk">
+                            <input type="checkbox" ng-change="toggleAskButton()" ng-model="user.prefs.ask">
                             <span class="lever"></span>
                         </label>
                     </span>
@@ -62,6 +62,11 @@
         <h3>Education</h3>
     </div>
     <div class="z-depth-1" style="padding: 20px 52px;">
+        <div class="row" ng-repeat="school in user.school">
+            <h3>{{school.name}}</h3>
+            <h5><strong>degree </strong>{{school.degree}}</h5>
+            <p>from<strong> {{school.start}}</strong> to<strong> {{school.end}}</strong></p>
+        </div>
         <input type="hidden" name="_csrf"/>
         <div class="row">
             <div class="row" >
@@ -98,6 +103,11 @@
         <h3>Work history</h3>
     </div>
     <div class="z-depth-1" style="padding: 20px 52px;">
+        <div class="row" ng-repeat="work in user.work">
+            <h3>{{work.name}}</h3>
+            <h5>{{work.position}}</h5>
+            <p>from<strong> {{work.start}}</strong> to<strong> {{work.end}}</strong></p>
+        </div>
         <input type="hidden" name="_csrf"/>
         <div class="row">
             <div class="row" >

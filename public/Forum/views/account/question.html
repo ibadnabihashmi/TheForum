@@ -7,7 +7,6 @@
                 </div>
                 <div class="col m10">
                     <p><a href="/account/{{Question.userID.username}}">@{{Question.userID.username}}</a><span ng-if="Question.to.length" class="to">to</span><a ng-repeat="to in Question.to" href="/account/{{to.username}}">@{{to.username}}</a></p>
-                    <p>{{Question.question}}</p>
                     <delete-directive delete-type="deleteQuestion" delete-id="Question._id" owner-id="Question.userID._id"></delete-directive>
                 </div>
             </div>

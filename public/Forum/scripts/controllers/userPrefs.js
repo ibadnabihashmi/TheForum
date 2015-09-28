@@ -1,7 +1,9 @@
 angular.module('the-forum').controller('UserprefsController', function ($scope,$http, sessionService, fetchService,updateService) {
     $scope.years = [];
     $scope.pass = {newPass:'',confPass:''};
-    $scope.enableAsk;
+    sessionService.getSessionInfo().then(function(res){
+        $scope.user = res;
+    });
     var initializeYears = function(){
         for(var i=1950;i<2025;i++){
             $scope.years.push(i);
@@ -11,7 +13,6 @@ angular.module('the-forum').controller('UserprefsController', function ($scope,$
         updateService.updateSchool({
             school:$scope.school
         }).then(function(res){
-            console.log(res);
             $scope.school = {
                 name:'',
                 degree:'',
@@ -25,7 +26,6 @@ angular.module('the-forum').controller('UserprefsController', function ($scope,$
         updateService.updateWork({
             work:$scope.work
         }).then(function(res){
-            console.log(res);
             $scope.work = {
                 name:'',
                 position:'',
@@ -42,7 +42,6 @@ angular.module('the-forum').controller('UserprefsController', function ($scope,$
             updateService.updatePass({
                 pass:$scope.pass
             }).then(function(res){
-                console.log(res);
             });
         }
     };
@@ -50,11 +49,14 @@ angular.module('the-forum').controller('UserprefsController', function ($scope,$
         updateService.updateInfo({
             info:$scope.user
         }).then(function(res){
-            console.log(res);
         });
     };
     $scope.toggleAskButton = function(){
-        alert($scope.user.enableAsk);
+        $http.put('/update/edb',{
+            toggle:$scope.user.prefs.ask
+        }).then(function(res){
+            console.log(res);
+        });
     };
     $scope.school = {
         name:'',

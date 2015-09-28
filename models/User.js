@@ -6,12 +6,6 @@ var userSchema = new mongoose.Schema({
     username: {type: String},
     email: { type: String, unique: true, lowercase: true },
     password: String,
-    notifications: [{
-        associatedId: { type : mongoose.Schema.Types.ObjectId },
-        commentedBy: String,
-        type: String,
-        date: {type: Date, default: Date.now}
-    }],
     followers:{
         type : [mongoose.Schema.Types.ObjectId],
         ref : 'User'
@@ -53,6 +47,9 @@ var userSchema = new mongoose.Schema({
             end:{type:String,default:''}
         }
     ],
+    prefs:{
+        ask:{type:Boolean,default:true}
+    },
     resetPasswordToken: String,
     resetPasswordExpires: Date
 });

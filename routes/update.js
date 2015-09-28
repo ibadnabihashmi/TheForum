@@ -10,7 +10,7 @@ var router = express.Router();
 
 router.post('/school',function(req,res){
 
-    User.findById(req.user.id).exec(function(err,user){
+    User.findById(req.user.id).select('-password').exec(function(err,user){
         user.school.push(req.body.school);
         user.save(function(err){
             if(!err){
@@ -23,32 +23,38 @@ router.post('/school',function(req,res){
 });
 router.post('/work',function(req,res){
 
-    User.findById(req.user.id).exec(function(err,user){
+    User.findById(req.user.id).select('-password').exec(function(err,user){
         user.work.push(req.body.work);
         user.save(function(err){
             if(!err){
                 res.send(200,{
                     user:user
                 });
+            }else{
+                console.log(err);
+                res.send(500);
             }
         });
     });
 });
 router.post('/info',function(req,res){
-    User.findById(req.user.id).exec(function(err,user){
+    User.findById(req.user.id).select('-password').exec(function(err,user){
         user.profile = req.body.info.profile;
         user.save(function(err){
             if(!err){
                 res.send(200,{
                     user:user
                 });
+            }else{
+                console.log(err);
+                res.send(500);
             }
         });
     });
 });
 router.post('/pass',function(req,res){
     console.log(req.body);
-    User.findById(req.user.id).exec(function(err,user){
+    User.findById(req.user.id).select('-password').exec(function(err,user){
         user.password = req.body.pass.newPass;
         user.save(function(err){
             if(!err){
@@ -57,6 +63,26 @@ router.post('/pass',function(req,res){
                 });
             }
         });
+    });
+});
+router.put('/edb',function(req,res){
+    User.findById(req.user.id).select('-password').exec(function(err,user){
+        if(user){
+            user.prefs.ask = req.body.toggle;
+            user.save(function(err){
+                if(!err){
+                    res.send(200,{
+                        user:user
+                    });
+                }else{
+                    console.log(err);
+                    console.log(req.body);
+                    res.send(500);
+                }
+            });
+        }else{
+            res.send(404);
+        }
     });
 });
 
