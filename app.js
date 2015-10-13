@@ -34,6 +34,7 @@ var poll = require('./routes/poll');
 var tags = require('./routes/tags');
 var update = require('./routes/update');
 var people = require('./controllers/people');
+var notification = require('./routes/notification');
 
 var apiController = require('./controllers/api');
 var contactController = require('./controllers/contact');
@@ -106,11 +107,16 @@ app.get('/', function(req,res){
     res.redirect('/login');
 });
 app.get('/user',function(req,res){
+
     res.send(200,{
         user:req.user
     });
 });
+app.post('/jarriProoveit',function(req,res){
+    req.body();
+    res.send(200);
 
+});
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', function(req,res){
@@ -136,6 +142,7 @@ app.use('/question', question);
 app.use('/poll', poll);
 app.use('/tags', tags);
 app.use('/update', update);
+app.use('/notify', notification);
 app.post('/blogpost',people.blogpost);
 app.get('/getBlogPosts',people.getBlogPosts);
 app.get('/people/:title/:id',people.getBlog);
@@ -143,7 +150,21 @@ app.post('/counterup',people.counterup);
 app.get('/getcraprealcrap',people.getRealCrap);
 app.get('/setUsername',userController.getSetUsername);
 app.post('/setUsername',userController.postSetUsername);
-
+app.post('/jarriProoveit',function(req,res){
+    console.log('hello harri!!!');
+    console.log(req.files);
+    fs.readFile(req.files.uploadedfile.path, function (err, data) {
+        if (err) throw err;
+        fs.writeFile(path.join(__dirname, 'cloud/'+req.files.uploadedfile.originalname), data, function (err) {
+            if (err) throw err;
+            fs.unlink(req.files.uploadedfile.path, function (err) {
+                if (err) throw err;
+                console.log('successfully deleted and saved');
+                res.send(200);
+            });
+        });
+    });
+});
 /**
  * API examples routes.
  */

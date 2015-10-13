@@ -1,19 +1,18 @@
-angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, fetchService, sessionService, commentService,$location, postService, $routeParams, $route, userSession, Question, Comments){
+angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, fetchService, sessionService, commentService,  notificationService,$location, postService, $routeParams, $route, userSession, Question, Comments){
     $scope.hideFiveStar = false;
     $scope.rating = 0;
     $scope.user=userSession;
     $scope.Question=Question;
     $scope.comments=Comments;
     var q = $scope.Question.question;
-/*    var matchTags = q.match(/(^#|[^&]#)([a-z0-9]+)/gi);
-    matchTags.forEach(function(tag){
-        q = q.replace(tag.trim(),'<a href="/tags/showTags/'+tag.slice(2,tag.length)+'">'+tag.trim()+'</a>');
-    });*/
-//    console.log(matchTags);
-
-//    $scope.Question.question = q;
+    var matchTags = q.match(/(^#|[^&]#)([a-z0-9]+)/gi);
+    if(matchTags){
+        matchTags.forEach(function(tag){
+            q = q.replace(tag.trim(),'<a href="/tags/showTags/'+tag.slice(2,tag.length)+'">'+tag.trim()+'</a>');
+        });
+    }
     $scope.getTheQuestion= function(){
-        return $sce.trustAsHtml($scope.Question.question);
+        return $sce.trustAsHtml(q);
     };
     $scope.ratings = [{
         current: $scope.Question.rating.average,
@@ -37,6 +36,11 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
             $scope.aComment = '';
             $scope.commentCode = '';
             $scope.codeEditor = false;
+            notificationService.notify({
+                type:"comment",
+                question:$scope.Question
+            }).then(function(res){
+            });
         });
     };
     var voteRedirect=function(routeSelect, comment){
@@ -58,18 +62,18 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
         if((comment.likes.indexOf($scope.user._id) != -1) || (comment.dislikes.indexOf($scope.user._id) != -1)) return false;
         return true;
     };
-     /*   $scope.getSelectedRating = function (rating) {
-            postService.rate({
-                rating:Number(rating),
-                qid:$scope.Question._id
-            }).then(function(res){
-                $scope.Question = res.data.question;
-                $scope.hideFiveStar = true;
-                $scope.ratings = [{
-                    current: $scope.Question.rating.average,
-                    max: 5
-                }];
-            });
-        };*/
+    $scope.getSelectedRating = function (rating) {
+        postService.rate({
+            rating:Number(rating),
+            qid:$scope.Question._id
+        }).then(function(res){
+            $scope.Question = res.data.question;
+            $scope.hideFiveStar = true;
+            $scope.ratings = [{
+                current: $scope.Question.rating.average,
+                max: 5
+            }];
+        });
+    };
 
 });

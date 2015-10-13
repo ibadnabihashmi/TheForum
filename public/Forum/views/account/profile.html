@@ -12,7 +12,7 @@
                     <h5 class="userName">@{{userInfo.username}}</h5>
                 </span>
                 <button ng-show="otherUser" ng-click="onFollow(follow)" class="btn btn-follow waves-effect " >{{follow}}</button>
-                <button ng-show="otherUser" class="btn btn-ask waves-effect " href='#askModal' modal>ask me</button>
+                <button ng-show="otherUser && userInfo.prefs.ask" class="btn btn-ask waves-effect " href='#askModal' modal>ask me</button>
             </div>
             <div>
                 <div class="col m1 text-center center-align" style="margin-top: 30px;">

@@ -7,22 +7,26 @@
                 </div>
                 <div class="col m10">
                     <p><a href="/account/{{Question.userID.username}}">@{{Question.userID.username}}</a><span ng-if="Question.to.length" class="to">to</span><a ng-repeat="to in Question.to" href="/account/{{to.username}}">@{{to.username}}</a></p>
-                    <delete-directive delete-type="deleteQuestion" delete-id="Question._id" owner-id="Question.userID._id"></delete-directive>
+
                 </div>
             </div>
             <div>
                 <h3 ng-bind-html="getTheQuestion()"></h3>
             </div>
             <div ng-if="Question.code" class="col s12" ng-model="Question.code" ui-ace readonly="true"></div>
+
             <div ng-if="!hideFiveStar && user" style="margin-top: 20px;">
+                <delete-directive delete-type="deleteQuestion" delete-id="Question._id" owner-id="Question.userID._id"> delete</delete-directive>
                 <span ng-repeat="rating in ratings">
                     <div star-rating rating-value="rating.current" max="rating.max" on-rating-selected="getSelectedRating(rating)">
                     </div><span class="rating-label" style="font-size: 30px;">{{Question.rating.average.toFixed(1)}}</span>
                 </span>
             </div>
             <div ng-if="hideFiveStar || !user"  style="margin-top: 20px;">
+                <delete-directive delete-type="deleteQuestion" delete-id="Question._id" owner-id="Question.userID._id"> delete</delete-directive>
                 <span class="rating-label" style="font-size: 30px;"><i class=" material-icons prefix">stars</i> {{Question.rating.average.toFixed(1)}}</span>
             </div>
+
         </div>
     </div>
     <div class="z-depth-1" style="padding: 40px;margin-top: 20px">
@@ -35,7 +39,6 @@
                         </div>
                         <div class="col m11">
                             <p><a href="/account/{{comment.byUser.username}}">@{{comment.byUser.username}}</a></p>
-                            <delete-directive delete-type="deleteComment" delete-id="comment._id" owner-id="comment.byUser._id"></delete-directive>
                         </div>
                     </div>
                     <div class="row">

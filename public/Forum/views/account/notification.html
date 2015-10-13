@@ -1,12 +1,19 @@
-<div>
+<div ng-controller="NotifCtrl">
     <div class="z-depth-1" style="padding: 20px 52px;">
-        <h3>Notifications:</h3>
-        <div ng-repeat="n in notifications">
-            <p>
-                <a href="/explore/questionPage/{{n.qID._id}}">
-                    {{n.commentedBy}} posted on your Question "{{n.qID.question}}" on {{n.date}}
-                </a>
-            </p>
-        </div>
+        <h3>Notifications</h3>
+
+
+    </div>
+    <div class="z-depth-1" style="margin-top: 20px">
+        <ul class="collection">
+            <a ng-repeat="notif in notifications" href="/explore/questionPage/{{notif.assocPost}}" class="collection-item avatar">
+                <li >
+                    <i ng-if="!notif.read" class="material-icons circle purple">info</i>
+                    <i ng-if="notif.read" class="material-icons circle">info</i>
+                    <span class="title">@{{notif.message}}</span>
+                    <p>{{notif.time}}</p>
+                </li>
+            </a>
+        </ul>
     </div>
 </div>

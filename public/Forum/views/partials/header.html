@@ -7,27 +7,27 @@
                         <form>
                             <div class="input-field">
                                 <input id="search" type="search" ng-model="query" ng-keyup="userSearch($event)" required style="background-color: #4C3692;color: #FFF;">
-                                <label for="search"><i class="material-icons" style="color: white">search</i></label>
+                                <label for="search"><i class="material-icons navcon" >search</i></label>
                             </div>
                         </form>
                     </li>
                 </ul>
                 <ul class="right hide-on-med-and-down">
 
-                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="i'm qurious"><a class="dropdown-button" href="#!" data-activates="bored" data-constrainwidth="false" dropdown><i class="material-icons">help_outline</i></a></li>
-                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="notifications"><a href="/account/{{user.username}}/notification"><i class="material-icons">add_alert</i></a></li>
-                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="explore"><a href="/explore"><i class="material-icons">question_answer</i></a></li>
-                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="profile"><a href="/account/{{user.username}}"><i class="material-icons">account_circle</i></a></li>
-                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="logout"><a href="/logout"><i class="material-icons">power_settings_new</i></a></li>
-                    <li ng-show="!user"><a href="/login"><i class="material-icons">exit_to_app</i></a></li>
-                    <li ng-show="!user"><a href="/signup"><i class="material-icons">person_pin</i></a></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="i'm qurious"><a href="/account/{{user.username}}/ask"><i class="material-icons  navcon">help_outline</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="notifications"><a href="/account/{{user.username}}/notification"><i ng-class="!user.notifSeen?'material-icons new-notif':'material-icons navcon'">add_alert</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="explore"><a href="/explore"><i class="material-icons  navcon">question_answer</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="profile"><a href="/account/{{user.username}}"><i class="material-icons  navcon">account_circle</i></a></li>
+                    <li ng-show="user" tooltipped data-position="bottom" data-delay="50" data-tooltip="logout"><a href="/logout"><i class="material-icons  navcon">power_settings_new</i></a></li>
+                    <li ng-show="!user"><a href="/login"><i class="material-icons  navcon">exit_to_app</i></a></li>
+                    <li ng-show="!user"><a href="/signup"><i class="material-icons  navcon">person_pin</i></a></a></li>
                 </ul>
 
                 <ul id="nav-mobile" class="side-nav">
                     <li ng-show="!user"><a href="/login">Login</a></li>
                     <li ng-show="!user"><a href="/signup">Create Account</a></li>
                     <li><a href="/account/{{user.username}}/ask">ask a question</a></li>
-                    <li><a href="/poll">start a poll</a></li>
+                    <!--<li><a href="/poll">start a poll</a></li>-->
                     <li ng-show="user"><a href="/account">Profile</a></li>
                     <li ng-show="user"><a href="/explore">Explore</a></li>
                     <li ng-show="user"><a href="/account/notification">Notifications</a></li>
@@ -39,7 +39,7 @@
                     <li class="divider"></li>
                     <li><a href="/poll">start a poll</a></li>
                 </ul>
-                <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-closeonclick="false"><i class="material-icons">menu</i></a>
+                <a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-closeonclick="false"><i class="material-icons  navcon">menu</i></a>
                 <a href="/" class="brand-logo center"><img src="img/queb.png" class="quebLogo"></a>
             </div>
         </nav>

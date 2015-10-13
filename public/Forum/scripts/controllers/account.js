@@ -1,4 +1,4 @@
-angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, sessionService, fetchService, userSession, userInfo) {
+angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, sessionService, fetchService,notificationService, userSession, userInfo) {
     //further Refactoring:
     //otherUser has to be predefined in the route resolve
     //limitation of returned resources on every fetch
@@ -105,6 +105,9 @@ angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, se
         question.to.push($scope.userInfo._id);
         $http.post('/account/:username/ask',question)
             .then(function(res){
+                notificationService.askNotify({question:res.data.question}).then(function(res){
+                    console.log(res);
+                });
             });
     };
     fetchUserPosts();

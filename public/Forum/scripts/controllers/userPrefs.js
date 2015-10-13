@@ -55,7 +55,6 @@ angular.module('the-forum').controller('UserprefsController', function ($scope,$
         $http.put('/update/edb',{
             toggle:$scope.user.prefs.ask
         }).then(function(res){
-            console.log(res);
         });
     };
     $scope.school = {

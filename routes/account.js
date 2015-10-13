@@ -176,7 +176,7 @@ router.post('/:username/ask',function(req,res,next){
                     if(err){
                         res.send(500)
                     }else{
-                        res.send(200);
+                        res.send(200,{question:question});
                     }
                 });
             };

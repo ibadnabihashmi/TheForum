@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-
+var SecondaryUser = require('../models/SecondaryUser');
 var userSchema = new mongoose.Schema({
     username: {type: String},
     email: { type: String, unique: true, lowercase: true },
@@ -49,6 +49,37 @@ var userSchema = new mongoose.Schema({
     ],
     prefs:{
         ask:{type:Boolean,default:true}
+    },
+    notifications:[
+        {
+            notifID:{
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'SecondaryUser'
+            },
+            assocPost:{
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Question'
+            },
+            time:{
+                type:Date,
+                default:Date.now()
+            },
+            message:{
+                type:String
+            },
+            notificationFor:{
+                type:String,
+                default:''
+            },
+            read:{
+                type:Boolean,
+                default:false
+            }
+        }
+    ],
+    notifSeen:{
+        type:Boolean,
+        default:true
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date

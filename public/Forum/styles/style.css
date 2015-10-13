@@ -5,7 +5,7 @@ nav ul a {
     color: white;
 }
 .purple{
-    background-color: #2E205B!important;
+    background-color: #4C3692 !important;
 }
 .dropdown-content li>a, .dropdown-content li>span {
     font-size: 1.2rem;
@@ -209,6 +209,15 @@ ul.rating {
     height: 2px;
     background-color: #4C3692;
     will-change: left, right;
+}
+.navcon{
+    color: #8C78CA;
+}
+.new-notif{
+    color:red
+}
+.notif-read{
+    background-color: gainsboro;
 }
 @media only screen and (max-width: 400px) {
     .profile-head{

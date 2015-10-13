@@ -45,6 +45,7 @@ router.post('/thumbsDown',function(req,res){
 router.post('/rate',function(req,res){
     Question
         .findById(req.body.qid)
+        .populate('userID username email profile to')
         .exec(function(err,question){
             if(question){
                 question.rating.average = (question.rating.ratedBy.length == 0) ? req.body.rating : Math.floor((req.body.rating + question.rating.average)/2);

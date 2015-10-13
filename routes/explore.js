@@ -44,10 +44,34 @@ router.get('/getComments',function(req,res){
 });
 
 router.get('/question',function(req,res,next){
-    Question.findById(req.query.qid).populate('userID username email profile to').exec(function(err,response){
-        res.send(200,{
-            question:response
-        });
+    Question.findById(req.query.qid).populate('userID username email profile to').exec(function(err,ques){
+        User.
+            findById(req.user.id).
+            exec(function(err,user){
+                var ind = _.findIndex(user.notifications,function(chr) {
+                    return chr.assocPost == req.query.qid;
+                });
+                if(ind != -1){
+                    user.notifications[ind].read = true;
+                    user.save(function(err){
+                        if(!err){
+                            res.send(200,{
+                                question:ques
+                            });
+                        }else{
+                            console.log(err);
+                            res.send(200,{
+                                question:ques
+                            });
+                        }
+                    });
+                }else{
+                    console.log("self made billionaire"+ind);
+                    res.send(200,{
+                        question:ques
+                    });
+                }
+            });
     });
 });
 router.get('/poll/:pid',function(req,res,next){
