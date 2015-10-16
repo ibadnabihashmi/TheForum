@@ -6,26 +6,37 @@ var SecondaryUser = require('../models/SecondaryUser');
 var Tag = require('../models/Tag');
 var express = require('express');
 var router = express.Router();
-
+var findInd = function(a,b){
+    for(var i=0;i<a.length;i++){
+        console.log("hahaa");
+        if(a[i].notifID.toString() === b.toString()){
+            return i;
+        }else{
+            console.log(a[i].notifID);
+            console.log(b);
+            console.log(typeof a[i].notifID);
+            console.log(typeof b);
+        }
+    }
+    return -1;
+};
 router.post('/comment',function(req,res){
     var notifyUser = function(req,res,isSec,noti,done){
         if(isSec){
             async.eachSeries(noti.primaryUsers,function(thisUser,callback){
                 User.findById(thisUser).exec(function(err,user){
-                    var index = _.findIndex(user.notifications,function(chr) {
-                        return chr.notifID == noti._id;
-                    });
+                    var index = findInd(user.notifications,noti._id);
                     if(index != -1){
                         user.notifications[index].time = Date.now();
                         user.notifications[index].read = false;
                         user.notifSeen = false;
-                        user.notifications[index].message = req.user.username+' have said something here on this question';
+                        user.notifications[index].message = req.user.username+' has said something here on this question';
                     }else{
                         var obj = {
                             notifID:noti._id,
                             assocPost:noti.assocPost,
                             time:Date.now(),
-                            message:req.user.username+' have said something here on this question',
+                            message:req.user.username+' has said something here on this question',
                             notificationFor:'comment'
                         };
                         user.notifSeen = false;
@@ -50,20 +61,18 @@ router.post('/comment',function(req,res){
             async.eachSeries(_.union(noti.primaryUsers,noti.secondaryUsers),function(thisUser,callback){
                 if(req.user.id != thisUser){
                     User.findById(thisUser).exec(function(err,user){
-                        var index = _.findIndex(user.notifications,function(chr) {
-                            return chr.notifID == noti._id;
-                        });
+                        var index = findInd(user.notifications,noti._id);
                         if(index != -1){
                             user.notifications[index].time = Date.now();
                             user.notifications[index].read = false;
                             user.notifSeen = false;
-                            user.notifications[index].message = req.user.username+' have said something here on this question';
+                            user.notifications[index].message = req.user.username+' has said something here on this question';
                         }else{
                             var obj = {
                                 notifID:noti._id,
                                 assocPost:noti.assocPost,
                                 time:Date.now(),
-                                message:req.user.username+' have said something here on this question',
+                                message:req.user.username+' has said something here on this question',
                                 notificationFor:'comment'
                             };
                             user.notifSeen = false;
@@ -106,6 +115,7 @@ router.post('/comment',function(req,res){
                             }
                         });
                     }else{
+                        console.log("garaj baras!!");
                         notifyUser(req,res,true,notif,function(){
                             res.send(200);
                         });
@@ -186,6 +196,24 @@ router.post('/askNotify',function(req,res){
         }else{
             res.send(500);
         }
+    });
+});
+router.post('/followNotif',function(req,res){
+    User.findById(req.body.otherUser._id).exec(function(err,user){
+        user.notifSeen = false;
+        var obj = {
+            time:Date.now(),
+            message:req.user.username+' is now following you!',
+            notificationFor:'follow'
+        };
+        user.notifications.push(obj);
+        user.save(function(err){
+            if(!err){
+                res.send(200);
+            }else{
+                res.send(500);
+            }
+        });
     });
 });
 router.get('/check',function(req,res){

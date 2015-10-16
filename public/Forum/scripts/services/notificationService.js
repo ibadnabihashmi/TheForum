@@ -19,6 +19,11 @@ angular.module('the-forum').factory('notificationService', function($http){
             return $http.get('/notify/getNotifs').then(function(res){
                 return res;
             });
+        },
+        followNotif: function(data){
+            return $http.post('/notify/followNotif',data).then(function(res){
+                return res;
+            });
         }
     }
 });
