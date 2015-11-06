@@ -47,7 +47,7 @@ angular.module('the-forum').controller('AccountCtrl', function ($scope,$http, se
             if(followFlag=="Follow"){
                 sessionService.followUser($scope.userInfo._id).then(function (response) {
                     setupProfileView();
-                    notificationService.followNotif({otherUser:$scope.userInfo}).then(function(res){
+                    notificationService.followNotif({otherUser : $scope.userInfo}).then(function(res){
                         return;
                     });
                 });

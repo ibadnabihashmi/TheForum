@@ -4,8 +4,7 @@ var tagSchema = new mongoose.Schema({
     name : {
         type : String
     },
-    questionsTagged : [
-        {
+    questionsTagged : [{
             type : mongoose.Schema.Types.ObjectId,
             ref : 'Question'
         }

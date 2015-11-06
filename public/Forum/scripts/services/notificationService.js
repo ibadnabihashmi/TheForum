@@ -1,7 +1,7 @@
 angular.module('the-forum').factory('notificationService', function($http){
     return{
         notify: function(data){
-            return $http.post('/notify/comment',data).then(function(res){
+            return $http.post('/notify/comment', data).then(function(res){
                 return res;
             });
         },

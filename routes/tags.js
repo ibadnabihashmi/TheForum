@@ -7,8 +7,6 @@ var Category = require('../models/Category');
 var Tag = require('../models/Tag');
 var express = require('express');
 var router = express.Router();
-
-
 function render(title){
     return function(req,res){
         return res.render('Forum', {

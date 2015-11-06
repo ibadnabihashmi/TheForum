@@ -74,7 +74,11 @@ var userSchema = new mongoose.Schema({
             read:{
                 type:Boolean,
                 default:false
-            }
+            },
+            commentID:[{
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Comment'
+            }]
         }
     ],
     notifSeen:{

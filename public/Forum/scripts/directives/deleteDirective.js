@@ -1,10 +1,10 @@
 angular.module('the-forum').directive('deleteDirective', function (deleteService, sessionService, $route, $location) {
     return{
         scope:{
-            deleteType: "@", deleteId: '=', ownerId: '='
+            deleteType: "@", deleteId: '=', ownerId: '=', questionById: '='
         },
         restrict: 'E',
-        template: '<div ng-show="hasRight"><a ng-click="deleteHandler()" class="btn-floating btn-small btn-white waves-effect z-depth-0"><i class="fa fa-trash-o" style="color: grey"></i></a> <!--Change style!!--></div>',
+        template: '<div ng-show="hasRight"><a ng-click="deleteHandler()" class="btn-floating btn-small btn-white waves-effect z-depth-0"><i class="fa fa-trash-o" style="color: grey"></i></a></div>',
         link: function (scope, elements, attrs) {
             sessionService.getSessionInfo().then(function(response){
                 if(scope.ownerId==response._id) scope.hasRight=true;
@@ -25,7 +25,7 @@ angular.module('the-forum').directive('deleteDirective', function (deleteService
                   scope.deleteQuestion();
                 }
                 if(type==='deleteComment') {
-                    deleteService.deleteComment(id);
+                    deleteService.deleteComment(id, scope.questionById);
                     $route.reload();
                 }
                 if(type==='deletePoll') {

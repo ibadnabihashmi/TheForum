@@ -34,6 +34,7 @@ angular.module('the-forum').factory('fetchService', function($http, $routeParams
             return $http.get('/explore/getPollComments/'+$routeParams.pid).then(function(res){
                 return res;
             });
+
         },
         fetchUserPosts: function(data){
             return $http.post('/account/'+$routeParams.username+'/getUserPosts',data).then(function(res){

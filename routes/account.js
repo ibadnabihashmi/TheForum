@@ -7,15 +7,13 @@ var Category = require('../models/Category');
 var Tag = require('../models/Tag');
 var express = require('express');
 var router = express.Router();
-
+var mongoose = require('mongoose');
 function render(req,res){
     res.render('Forum', {
         title: 'Account Management',
         user: req.user
     });
 }
-
-
 router.get('/:username',render);
 router.get('/:username/ask',render);
 router.get('/:username/notification', render);
@@ -23,11 +21,13 @@ router.get('/:username/activity', render);
 router.get('/:username/settings_profile', render);
 
 router.post('/comment',function(req,res,next){
+    var addedCommentId= mongoose.Types.ObjectId();
     var comment = new Comment({
         date:Date.now(),
         text:req.body.comment,
         byUser:req.user.id,
-        questionId:req.body.qid
+        questionId:req.body.qid,
+        _id: addedCommentId
     });
     if(req.body.code){
         comment.code = req.body.code;
@@ -37,12 +37,14 @@ router.post('/comment',function(req,res,next){
             Comment.find({questionId:req.body.qid}).populate('byUser').sort({_id:1}).exec(function(err,comments){
                 if(!err){
                     res.send(200,{
-                        comments:comments
+                        comments: comments,
+                        addedCommentId: addedCommentId
                     });
                 }
             });
         }
     });
+
 });
 router.post('/:username/getUserPosts',function(req,res){
     Question

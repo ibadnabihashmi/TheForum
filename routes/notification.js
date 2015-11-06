@@ -8,7 +8,6 @@ var express = require('express');
 var router = express.Router();
 var findInd = function(a,b){
     for(var i=0;i<a.length;i++){
-        console.log("hahaa");
         if(a[i].notifID.toString() === b.toString()){
             return i;
         }else{
@@ -30,12 +29,14 @@ router.post('/comment',function(req,res){
                         user.notifications[index].time = Date.now();
                         user.notifications[index].read = false;
                         user.notifSeen = false;
+                        user.notifications[index].commentID.push(req.body.addedCommentId);
                         user.notifications[index].message = req.user.username+' has said something here on this question';
                     }else{
                         var obj = {
                             notifID:noti._id,
                             assocPost:noti.assocPost,
                             time:Date.now(),
+                            commentID:  req.body.addedCommentId,
                             message:req.user.username+' has said something here on this question',
                             notificationFor:'comment'
                         };
@@ -66,12 +67,14 @@ router.post('/comment',function(req,res){
                             user.notifications[index].time = Date.now();
                             user.notifications[index].read = false;
                             user.notifSeen = false;
+                            user.notifications[index].commentID.push(req.body.addedCommentId);
                             user.notifications[index].message = req.user.username+' has said something here on this question';
                         }else{
                             var obj = {
                                 notifID:noti._id,
                                 assocPost:noti.assocPost,
                                 time:Date.now(),
+                                commentID: req.body.addedCommentId,
                                 message:req.user.username+' has said something here on this question',
                                 notificationFor:'comment'
                             };
@@ -115,7 +118,6 @@ router.post('/comment',function(req,res){
                             }
                         });
                     }else{
-                        console.log("garaj baras!!");
                         notifyUser(req,res,true,notif,function(){
                             res.send(200);
                         });
@@ -159,7 +161,7 @@ router.post('/comment',function(req,res){
 });
 router.post('/askNotify',function(req,res){
     var arr = [];
-    arr.push(req.user.id)
+    arr.push(req.user.id);
     var secondary = new SecondaryUser();
     secondary.primaryUsers = _.union(req.body.question.to,arr);
     secondary.secondaryUsers = [];

@@ -41,6 +41,7 @@
                             <p><a href="/account/{{comment.byUser.username}}">@{{comment.byUser.username}}</a></p>
                         </div>
                     </div>
+                    <delete-directive delete-type="deleteComment" delete-id="comment._id" owner-id="comment.byUser._id" question-by-id="Question.userID._id"> delete</delete-directive>
                     <div class="row">
                         <h6>{{comment.text}}</h6>
                         <div ng-if="comment.code" class="col s12" ng-model="comment.code" ui-ace readonly="true"></div>

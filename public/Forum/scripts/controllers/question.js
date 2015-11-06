@@ -32,12 +32,13 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
             data.code = $scope.commentCode;
         }
         commentService.postComment(data).then(function(response){
-            $scope.comments = response;
+            $scope.comments = response.comments;
             $scope.aComment = '';
             $scope.commentCode = '';
             $scope.codeEditor = false;
             notificationService.notify({
                 type:"comment",
+                addedCommentId: response.addedCommentId,
                 question:$scope.Question
             }).then(function(res){
             });
@@ -47,7 +48,6 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
         commentService.commentVote(routeSelect, comment);
         $route.reload();
     };
-
     $scope.upVote = function(comment,index){
         $scope.comments[index].likes.length++;
         voteRedirect('thumbsUp', comment);
@@ -56,8 +56,6 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
         $scope.comments[index].dislikes.length++;
         voteRedirect('thumbsDown', comment);
     };
-
-
     $scope.canComment = function(comment){
         if((comment.likes.indexOf($scope.user._id) != -1) || (comment.dislikes.indexOf($scope.user._id) != -1)) return false;
         return true;
@@ -75,5 +73,4 @@ angular.module('the-forum').controller('QstnCtrl',function($scope, $http, $sce, 
             }];
         });
     };
-
 });

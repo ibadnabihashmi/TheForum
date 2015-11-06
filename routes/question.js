@@ -67,25 +67,25 @@ router.post('/rate',function(req,res){
             }
         });
 });
-
-
-router.get('/deleteQuestion',function(req,res){
+router.get('/deleteQuestion',function(req, res){
     Question.find({_id: req.query.qid, userID: req.user.id}).remove().exec(function(error, res){
         if(!error) {
             if(res.result.n>0){
-                Comment.find({questionId: req.query.qid}).remove().exec(function(error, res){
-                    if(!error) console.log(res);
-                    else console.log(error);
-                });
+                Comment.find({questionId: req.query.qid}).remove().exec(function(error, res){});
             }
         }
     });
+    Tag.update({questionsTagged: req.query.qid}, {$pull: {questionsTagged: req.query.qid}}, {multi: true}).exec(function(error, res){
+        Tag.update({questionsTagged: {$size: 0 }}).remove().exec(function(error, res){});
+    });
+
 });
-router.get('/deleteComment',function(req,res){
+router.get('/deleteComment',function(req, res){
     Comment.find({_id: req.query.cid, byUser: req.user.id}).remove().exec(function(error, res){
-        if(!error) console.log(res);
+        if(!error) {}
         else console.log(error);
     });
+//    User.findOneAndUpdate({notifications: notifactionsID})
 });
 
 module.exports = router;
